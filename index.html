@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>India Nutrient Deficiency & Hidden Hunger Paradox Analytics</title>
+  
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Leaflet CSS for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">
+        <i class="fa-solid fa-heart-pulse"></i>
+      </div>
+      <div class="brand-text">
+        <h1>India Nutritional Analytics</h1>
+        <span class="sub-brand">The Hidden Hunger Paradox & Dietary Awareness Initiative</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#executive-overview" class="active"><i class="fa-solid fa-chart-pie"></i> Executive Deck</a>
+      <a href="#choropleth-section"><i class="fa-solid fa-map-location-dot"></i> State Geo-Map</a>
+      <a href="#analytics-charts"><i class="fa-solid fa-chart-column"></i> Paradox Charts</a>
+      <a href="#heatmap-section"><i class="fa-solid fa-table-cells"></i> State Matrix</a>
+      <a href="#calculator-section"><i class="fa-solid fa-utensils"></i> Plate Calculator</a>
+      <a href="#downloads-section"><i class="fa-solid fa-cloud-arrow-down"></i> Dataset & BI</a>
+    </div>
+  </header>
+
+  <!-- Hero & Problem Statement Banner -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <div class="badge-tag">
+        <i class="fa-solid fa-circle-exclamation"></i> ICMR-NIN 2024 & NFHS-5 Public Health Report
+      </div>
+      <h2>"Full Stomach, Starving Body" — The Indian Paradox</h2>
+      <p class="hero-lead">
+        Over <strong>80% of Indian diets</strong> deliver ample daily calories through refined staples (white rice, wheat atta, edible oils), yet leave millions suffering from severe micronutrient and protein deprivation due to low dietary literacy.
+      </p>
+      <div class="hero-highlights">
+        <div class="pill-metric">
+          <i class="fa-solid fa-wheat-awn"></i>
+          <span>Carb Energy Share: <strong>70.8%</strong> (Target: &lt;55%)</span>
+        </div>
+        <div class="pill-metric">
+          <i class="fa-solid fa-dna"></i>
+          <span>Protein Deficit: <strong>74.6%</strong> of Population</span>
+        </div>
+        <div class="pill-metric">
+          <i class="fa-solid fa-droplet"></i>
+          <span>Anemia Prevalence: <strong>57.0%</strong></span>
+        </div>
+        <div class="pill-metric">
+          <i class="fa-solid fa-sun"></i>
+          <span>Vitamin D Deficiency: <strong>76.8%</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter & Global Control Bar -->
+  <div class="global-filter-bar" id="filter-bar">
+    <div class="filter-group">
+      <label><i class="fa-solid fa-earth-asia"></i> Geographic Zone</label>
+      <select id="zone-filter">
+        <option value="All">All Regions (All India)</option>
+        <option value="North">North Zone</option>
+        <option value="Central">Central Zone</option>
+        <option value="East">East Zone</option>
+        <option value="West">West Zone</option>
+        <option value="South">South Zone</option>
+        <option value="North-East">North-East Zone</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label><i class="fa-solid fa-map-pin"></i> Select State/UT</label>
+      <select id="state-filter">
+        <option value="All">All 36 States & UTs</option>
+        <!-- Injected via JavaScript -->
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label><i class="fa-solid fa-city"></i> Locality</label>
+      <select id="area-filter">
+        <option value="All">All Localities</option>
+        <option value="Urban">Urban</option>
+        <option value="Rural">Rural</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label><i class="fa-solid fa-bowl-food"></i> Diet Pattern</label>
+      <select id="diet-filter">
+        <option value="All">All Diets</option>
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Eggetarian">Eggetarian</option>
+        <option value="Non-Vegetarian">Non-Vegetarian</option>
+      </select>
+    </div>
+
+    <div class="filter-actions">
+      <button id="reset-filters-btn" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-rotate-left"></i> Reset Filters
+      </button>
+    </div>
+  </div>
+
+  <main class="dashboard-main">
+
+    <!-- Executive Overview KPI Cards -->
+    <section id="executive-overview" class="section-container">
+      <div class="section-header">
+        <div>
+          <h3>Executive Nutritional Scorecard</h3>
+          <p class="section-desc">Key national benchmarks comparing energy intake adequacy against nutritional density gaps.</p>
+        </div>
+        <span class="source-tag">Source: ICMR-NIN 2024 / NFHS-5</span>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card card-accent-danger">
+          <div class="kpi-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+          <div class="kpi-meta">
+            <span class="kpi-label">National Protein Deficit</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpi-protein-def">74.6%</span>
+              <span class="kpi-badge badge-danger">Severe Gap</span>
+            </div>
+            <span class="kpi-sub">Avg intake: <strong>36.8g</strong> vs <strong>50g</strong> RDA</span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-accent-warning">
+          <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Hidden Hunger Index</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpi-hidden-hunger">68.2</span>
+              <span class="kpi-sub-unit">/ 100</span>
+              <span class="kpi-badge badge-warning">High Risk</span>
+            </div>
+            <span class="kpi-sub">Ample calories with micro-starvation</span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-accent-primary">
+          <div class="kpi-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Caloric Sufficiency</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpi-calorie-suff">102.4%</span>
+              <span class="kpi-badge badge-success">Sufficient</span>
+            </div>
+            <span class="kpi-sub"><strong>70.8%</strong> energy from refined carbs</span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-accent-danger">
+          <div class="kpi-icon"><i class="fa-solid fa-droplet"></i></div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Anemia Prevalence (Iron)</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpi-anemia">57.0%</span>
+              <span class="kpi-badge badge-danger">Critical</span>
+            </div>
+            <span class="kpi-sub">Up to <strong>67%</strong> in infants & <strong>57%</strong> women</span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-accent-warning">
+          <div class="kpi-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Vitamin D & B12 Gap</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpi-vitd-b12">76.8%</span>
+              <span class="kpi-sub-unit">Vit D</span>
+            </div>
+            <span class="kpi-sub">Vitamin B12 deficiency at <strong>62.4%</strong></span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-accent-info">
+          <div class="kpi-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+          <div class="kpi-meta">
+            <span class="kpi-label">Nutritional Literacy</span>
+            <div class="kpi-value-wrap">
+              <span class="kpi-value" id="kpi-literacy">45.0</span>
+              <span class="kpi-sub-unit">/ 100</span>
+              <span class="kpi-badge badge-info">Low Literacy</span>
+            </div>
+            <span class="kpi-sub">Major barrier to dietary diversity</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive India Choropleth / Geo-Map Section -->
+    <section id="choropleth-section" class="section-container">
+      <div class="section-header">
+        <div>
+          <h3>Interactive India Geospatial Heatmap</h3>
+          <p class="section-desc">Explore state-level nutritional deficiencies and toggle layers to uncover regional clusters.</p>
+        </div>
+        <div class="map-layer-selector">
+          <label>Color Layer:</label>
+          <div class="btn-group" id="map-metric-buttons">
+            <button class="btn btn-sm active" data-metric="protein_deficit_pct">Protein Deficit %</button>
+            <button class="btn btn-sm" data-metric="anemia_pct">Anemia (Iron) %</button>
+            <button class="btn btn-sm" data-metric="b12_pct">Vitamin B12 %</button>
+            <button class="btn btn-sm" data-metric="vitd_pct">Vitamin D %</button>
+            <button class="btn btn-sm" data-metric="calcium_pct">Calcium %</button>
+            <button class="btn btn-sm" data-metric="hidden_hunger_index">Hidden Hunger Index</button>
+            <button class="btn btn-sm" data-metric="awareness_score">Literacy Score</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-view-wrapper">
+        <div class="map-container-box">
+          <div id="india-map"></div>
+          <div class="map-legend" id="map-legend">
+            <div class="legend-title" id="legend-metric-label">Protein Deficit (%)</div>
+            <div class="legend-scale">
+              <span class="grad-bar" id="legend-gradient"></span>
+            </div>
+            <div class="legend-labels">
+              <span id="legend-min">40%</span>
+              <span id="legend-mid">65%</span>
+              <span id="legend-max">85%+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic State Scorecard Side Panel -->
+        <div class="state-scorecard-panel" id="state-detail-panel">
+          <div class="panel-header">
+            <div>
+              <span class="state-zone-badge" id="panel-zone-badge">Western Zone</span>
+              <h4 id="panel-state-name">Maharashtra</h4>
+              <p class="panel-capital" id="panel-state-meta">Capital: Mumbai | Pop: 12.5 Cr</p>
+            </div>
+            <span class="state-status-badge" id="panel-status-badge">High Severity</span>
+          </div>
+
+          <div class="panel-stats-list">
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-wheat-awn"></i> Caloric Intake vs RDA</span>
+              <span class="stat-val" id="panel-cal-stat">2230 kcal (108%)</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-bowl-rice"></i> Carb Energy Share</span>
+              <span class="stat-val" id="panel-carb-stat">68.0%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-dumbbell"></i> Daily Protein Deficit</span>
+              <span class="stat-val text-danger" id="panel-protein-stat">71.0% (35.2g/day)</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-droplet"></i> Anemia Prevalence</span>
+              <span class="stat-val text-danger" id="panel-anemia-stat">54.2%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-sun"></i> Vitamin D Deficiency</span>
+              <span class="stat-val" id="panel-vitd-stat">80.0%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-capsules"></i> Vitamin B12 Deficiency</span>
+              <span class="stat-val" id="panel-b12-stat">62.0%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-bone"></i> Calcium Deficiency</span>
+              <span class="stat-val" id="panel-calc-stat">67.5%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name"><i class="fa-solid fa-graduation-cap"></i> Nutritional Literacy</span>
+              <span class="stat-val text-info" id="panel-lit-stat">49.0 / 100</span>
+            </div>
+          </div>
+
+          <div class="urban-rural-card">
+            <h6><i class="fa-solid fa-arrows-split-up-and-left"></i> Urban vs Rural Divergence</h6>
+            <div class="split-bars">
+              <div class="split-col">
+                <span class="split-title">Urban Anemia</span>
+                <span class="split-num" id="panel-urban-anemia">51.2%</span>
+              </div>
+              <div class="split-col">
+                <span class="split-title">Rural Anemia</span>
+                <span class="split-num text-danger" id="panel-rural-anemia">57.4%</span>
+              </div>
+              <div class="split-col">
+                <span class="split-title">Double Burden</span>
+                <span class="split-num" id="panel-double-burden">26.4%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-alert-box">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span id="panel-recommendation">Dietary advice: High reliance on refined wheat/rice with minimal pulses and dairy. Increase sprouted chana, roasted sattu, and green saag.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location & Demographic Comparison Analytics Section -->
+    <section id="analytics-charts" class="section-container">
+      <div class="section-header">
+        <div>
+          <h3>Demographic & Behavioral Analytics</h3>
+          <p class="section-desc">Examining the clinical paradox across nutrients, demographics, and awareness correlations.</p>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <!-- Chart 1: Eating Enough vs Getting Nutrients (The Paradox) -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <h5>Chart 1: The "Eating Enough vs Getting Nutrients" Paradox</h5>
+              <p class="chart-desc">Actual Intake vs Body Requirement (RDA) (% Fulfillment)</p>
+            </div>
+            <span class="badge badge-warning">High Calorie / Low Nutrient</span>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="paradoxChart"></canvas>
+          </div>
+          <div class="chart-footer-note">
+            <i class="fa-solid fa-info-circle"></i> Calories and Carbohydrates exceed recommended limits (108% & 142%), while Protein, Iron, B12, Calcium and Vit D fulfill less than 30%–60% of physiological RDA.
+          </div>
+        </div>
+
+        <!-- Chart 2: Awareness vs Deficiency Scatter Plot -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div>
+              <h5>Chart 2: Awareness Score vs Hidden Hunger Severity</h5>
+              <p class="chart-desc">State Nutritional Literacy (X) vs Deficiency Severity Index (Y)</p>
+            </div>
+            <span class="badge badge-primary">Inverse Correlation</span>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="scatterChart"></canvas>
+          </div>
+          <div class="chart-footer-note">
+            <i class="fa-solid fa-chart-line"></i> States with higher dietary awareness (Kerala, Goa, Chandigarh) exhibit up to 35% lower Hidden Hunger scores than staple-heavy states.
+          </div>
+        </div>
+
+        <!-- Chart 3: Age & Gender Vulnerability -->
+        <div class="chart-card full-width-chart">
+          <div class="chart-card-header">
+            <div>
+              <h5>Chart 3: Age & Gender Vulnerability Across Life Stages</h5>
+              <p class="chart-desc">Micronutrient deficits and protein gaps segmented across children, adolescents, working adults, and seniors</p>
+            </div>
+            <span class="badge badge-danger">Maternal & Child Crisis</span>
+          </div>
+          <div class="chart-canvas-wrap" style="height: 340px;">
+            <canvas id="demographicChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Multi-Nutrient Heatmap Matrix Table -->
+    <section id="heatmap-section" class="section-container">
+      <div class="section-header">
+        <div>
+          <h3>Multi-Nutrient Heatmap Matrix (All 36 States & UTs)</h3>
+          <p class="section-desc">Quickly scan and sort nutritional deficiency benchmarks across every Indian territory.</p>
+        </div>
+        <div class="table-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="table-search-input" placeholder="Search state or zone...">
+        </div>
+      </div>
+
+      <div class="table-responsive-box">
+        <table class="data-matrix-table" id="states-matrix-table">
+          <thead>
+            <tr>
+              <th data-sort="name">State / UT <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="zone">Zone <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="population_cr">Pop (Cr) <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="calorie_sufficiency_pct">Calorie Suff % <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="carb_share_pct">Carb Share % <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="protein_deficit_pct">Protein Deficit % <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="anemia_pct">Anemia % <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="vitd_pct">Vit D % <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="b12_pct">Vit B12 % <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="awareness_score">Literacy Score <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="hidden_hunger_index">Hidden Hunger <i class="fa-solid fa-sort"></i></th>
+            </tr>
+          </thead>
+          <tbody id="matrix-table-body">
+            <!-- Injected dynamically via app.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Personal Body-Needs & Awareness Calculator ("Check Your Plate") -->
+    <section id="calculator-section" class="section-container">
+      <div class="section-header">
+        <div>
+          <h3><i class="fa-solid fa-calculator"></i> Personal Body-Needs Calculator: "Check Your Plate"</h3>
+          <p class="section-desc">Simulate a typical day's Indian meals to uncover your calorie vs. nutrient density reality and discover affordable food swaps.</p>
+        </div>
+        <span class="badge badge-success"><i class="fa-solid fa-seedling"></i> Personalized Nutrition</span>
+      </div>
+
+      <div class="calculator-grid">
+        <!-- Input Form -->
+        <div class="calc-form-box">
+          <h5>1. Demographic & Physical Profile</h5>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Your Age (Years)</label>
+              <input type="number" id="calc-age" min="5" max="95" value="26">
+            </div>
+            <div class="form-group">
+              <label>Gender</label>
+              <select id="calc-gender">
+                <option value="Female">Female</option>
+                <option value="Male" selected>Male</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Activity Level</label>
+              <select id="calc-activity">
+                <option value="Sedentary">Sedentary (Desk Job)</option>
+                <option value="Moderate" selected>Moderate (Active Walk / Workout)</option>
+                <option value="Heavy">Heavy Labor / Athletics</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Dietary Style</label>
+              <select id="calc-diet">
+                <option value="Vegetarian" selected>Vegetarian (No meat/eggs)</option>
+                <option value="Eggetarian">Eggetarian</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+              </select>
+            </div>
+          </div>
+
+          <h5 style="margin-top: 1.5rem;">2. Typical Daily Intake (Indian Servings)</h5>
+          <div class="meal-inputs-grid">
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-circle-dot"></i> Roti / Chapatis</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-roti" data-dir="-1">-</button>
+                <input type="number" id="item-roti" value="4" min="0" max="15">
+                <button type="button" class="btn-step" data-target="item-roti" data-dir="1">+</button>
+              </div>
+            </div>
+
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-bowl-rice"></i> Cooked Rice (Bowls)</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-rice" data-dir="-1">-</button>
+                <input type="number" id="item-rice" value="2" min="0" max="10">
+                <button type="button" class="btn-step" data-target="item-rice" data-dir="1">+</button>
+              </div>
+            </div>
+
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-bowl-food"></i> Dal / Sambhar (Bowls)</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-dal" data-dir="-1">-</button>
+                <input type="number" id="item-dal" value="1" min="0" max="6">
+                <button type="button" class="btn-step" data-target="item-dal" data-dir="1">+</button>
+              </div>
+            </div>
+
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-mug-saucer"></i> Curd / Chaas / Milk (Cups)</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-dairy" data-dir="-1">-</button>
+                <input type="number" id="item-dairy" value="1" min="0" max="6">
+                <button type="button" class="btn-step" data-target="item-dairy" data-dir="1">+</button>
+              </div>
+            </div>
+
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-cubes-stacked"></i> Paneer / Soya / Tofu (Cups)</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-paneer" data-dir="-1">-</button>
+                <input type="number" id="item-paneer" value="0" min="0" max="4">
+                <button type="button" class="btn-step" data-target="item-paneer" data-dir="1">+</button>
+              </div>
+            </div>
+
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-egg"></i> Eggs / Fish / Chicken (Servings)</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-egg-meat" data-dir="-1">-</button>
+                <input type="number" id="item-egg-meat" value="0" min="0" max="6">
+                <button type="button" class="btn-step" data-target="item-egg-meat" data-dir="1">+</button>
+              </div>
+            </div>
+
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-leaf"></i> Green Leafy Veggies (Cups)</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-greens" data-dir="-1">-</button>
+                <input type="number" id="item-greens" value="0.5" step="0.5" min="0" max="5">
+                <button type="button" class="btn-step" data-target="item-greens" data-dir="1">+</button>
+              </div>
+            </div>
+
+            <div class="meal-counter">
+              <label><i class="fa-solid fa-cookie-bite"></i> Fried Snacks / Biscuits (Pieces)</label>
+              <div class="counter-ctrl">
+                <button type="button" class="btn-step" data-target="item-snacks" data-dir="-1">-</button>
+                <input type="number" id="item-snacks" value="2" min="0" max="8">
+                <button type="button" class="btn-step" data-target="item-snacks" data-dir="1">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tea-iron-toggle">
+            <label class="switch-wrap">
+              <input type="checkbox" id="item-tea-iron" checked>
+              <span class="slider"></span>
+            </label>
+            <div class="tea-text">
+              <strong>Drink Chai / Coffee during or right after meals?</strong>
+              <p>Tannins & polyphenols inhibit plant iron absorption by up to 60%.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculator Dynamic Results -->
+        <div class="calc-results-box">
+          <h5>3. Your Personalized Nutritional Reality</h5>
+
+          <div class="diagnosis-badge-banner" id="calc-verdict-badge">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div>
+              <strong id="calc-verdict-title">Calorie Adequate, But Severe Protein Deficit</strong>
+              <p id="calc-verdict-desc">You are consuming enough energy, but lack vital building blocks for muscle and cell repair.</p>
+            </div>
+          </div>
+
+          <!-- Nutrient Progress Bars -->
+          <div class="nutrient-progress-deck">
+            <div class="prog-item">
+              <div class="prog-header">
+                <span>Calories</span>
+                <span id="calc-cal-label">2,240 / 2,110 kcal (106%)</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-fill prog-orange" id="calc-cal-fill" style="width: 100%;"></div>
+              </div>
+            </div>
+
+            <div class="prog-item">
+              <div class="prog-header">
+                <span>Protein</span>
+                <span id="calc-protein-label" class="text-danger">32.4 / 54.0 g (60% RDA)</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-fill prog-red" id="calc-protein-fill" style="width: 60%;"></div>
+              </div>
+            </div>
+
+            <div class="prog-item">
+              <div class="prog-header">
+                <span>Bioavailable Iron</span>
+                <span id="calc-iron-label" class="text-danger">8.2 / 19.0 mg (43% RDA)</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-fill prog-red" id="calc-iron-fill" style="width: 43%;"></div>
+              </div>
+            </div>
+
+            <div class="prog-item">
+              <div class="prog-header">
+                <span>Calcium</span>
+                <span id="calc-calc-label">420 / 1000 mg (42% RDA)</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-fill prog-yellow" id="calc-calc-fill" style="width: 42%;"></div>
+              </div>
+            </div>
+
+            <div class="prog-item">
+              <div class="prog-header">
+                <span>Vitamin B12 Status</span>
+                <span id="calc-b12-label">Low (Vegetarian Diet Risk)</span>
+              </div>
+              <div class="progress-bar-bg">
+                <div class="progress-fill prog-red" id="calc-b12-fill" style="width: 35%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Affordable Indian Food Swaps -->
+          <div class="food-swaps-container">
+            <h6><i class="fa-solid fa-arrow-right-arrow-left"></i> High-Impact, Affordable Indian Food Swaps</h6>
+            <div class="swaps-list" id="calc-swaps-list">
+              <div class="swap-item">
+                <div class="swap-icon"><i class="fa-solid fa-jar"></i></div>
+                <div class="swap-text">
+                  <strong>Swap 1 Roti for Sattu Drink (Roasted Gram):</strong>
+                  <span>Adds 12g of bioavailable plant protein, 4g fiber, and iron for only ~₹10.</span>
+                </div>
+              </div>
+              <div class="swap-item">
+                <div class="swap-icon"><i class="fa-solid fa-lemon"></i></div>
+                <div class="swap-text">
+                  <strong>Add 1/2 Lemon (Vitamin C) to Dal & Sabzi:</strong>
+                  <span>Triples your non-heme plant iron absorption rate without altering meal cost.</span>
+                </div>
+              </div>
+              <div class="swap-item">
+                <div class="swap-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <div class="swap-text">
+                  <strong>Delay Chai/Coffee by 45 Mins:</strong>
+                  <span>Prevents dietary tannins from binding and flushing out dietary iron and calcium.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Center & Methodology Section -->
+    <section id="downloads-section" class="section-container">
+      <div class="section-header">
+        <div>
+          <h3>Dataset Download Center & Documentation</h3>
+          <p class="section-desc">Access cleaned Excel workbooks, Power BI Star-Schema CSVs, and academic data methodologies.</p>
+        </div>
+      </div>
+
+      <div class="downloads-grid">
+        <div class="download-card">
+          <div class="dl-icon excel-icon"><i class="fa-solid fa-file-excel"></i></div>
+          <div class="dl-content">
+            <h5>Master Multi-Tab Excel Workbook</h5>
+            <p>Includes <code>Fact_State_Nutrition</code>, <code>Dim_Geography</code>, <code>Dim_Nutrient_RDA</code>, <code>Dim_Age_Awareness_Cohort</code>, <code>Executive_KPI_Summary</code>, and <code>Raw_Data_Log</code>.</p>
+            <a href="data/india_nutrient_deficiency_analytics.xlsx" download class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-download"></i> Download .XLSX (1.99 MB)
+            </a>
+          </div>
+        </div>
+
+        <div class="download-card">
+          <div class="dl-icon pbi-icon"><i class="fa-solid fa-chart-column"></i></div>
+          <div class="dl-content">
+            <h5>Power BI Ready Star Schema CSVs</h5>
+            <p>5 clean relational tables mapped with surrogate keys, ready for 1-click import into Microsoft Power BI Desktop.</p>
+            <a href="data/powerbi_exports/Fact_State_Nutrition.csv" download class="btn btn-secondary btn-sm">
+              <i class="fa-solid fa-table"></i> Download Fact Table (CSV)
+            </a>
+          </div>
+        </div>
+
+        <div class="download-card">
+          <div class="dl-icon guide-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+          <div class="dl-content">
+            <h5>Power BI Modeling Guide (DAX)</h5>
+            <p>Full documentation of Star Schema relationships, 12 core DAX formulas, and visual dashboard layout suggestions.</p>
+            <a href="POWERBI_GUIDE.md" target="_blank" class="btn btn-secondary btn-sm">
+              <i class="fa-solid fa-file-lines"></i> Open POWERBI_GUIDE.md
+            </a>
+          </div>
+        </div>
+
+        <div class="download-card">
+          <div class="dl-icon json-icon"><i class="fa-solid fa-code"></i></div>
+          <div class="dl-content">
+            <h5>Web JSON Data API Payload</h5>
+            <p>Structured JSON dataset powering this live dashboard, including state scores and demographic vulnerability series.</p>
+            <a href="data/india_nutrition_data.json" download class="btn btn-secondary btn-sm">
+              <i class="fa-solid fa-file-code"></i> Download JSON
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Public Health Reference Citation Accordion -->
+      <div class="citation-box">
+        <h5><i class="fa-solid fa-building-columns"></i> Official Public Health Data Sources & Standards</h5>
+        <ul>
+          <li><strong>ICMR-NIN (2024):</strong> Dietary Guidelines for Indians, National Institute of Nutrition, Indian Council of Medical Research, Hyderabad. Recommended energy share &lt;55% carbs, 0.83 g/kg protein.</li>
+          <li><strong>NFHS-5 (2019-2021):</strong> National Family Health Survey (MOHFW/IIPS), Comprehensive state fact sheets on anemia, stunting, wasting, and adult overweight burden.</li>
+          <li><strong>CNNS (2016-2018):</strong> Comprehensive National Nutrition Survey, Ministry of Health and Family Welfare (MoHFW), Government of India and UNICEF. Biochemical micronutrient assessment of Vitamin D, B12, Zinc, and Folate.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <strong>Nutrient Deficiency & Hidden Hunger Paradox Analytics</strong>
+        <p>Built for public health awareness, policy research, and interactive data analytics education.</p>
+      </div>
+      <div class="footer-right">
+        <span>Grounded on ICMR-NIN 2024 & NFHS-5 Benchmarks</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Leaflet JS, Chart.js, and Preloaded Data Bundles -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Preloaded Data files (supports both file:// and http:// execution) -->
+  <script src="data/india_nutrition_data.js"></script>
+  <script src="data/india_states_geojson.js"></script>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+Cohort_Key,Age_Group,Gender,Awareness_Tier,Life_Stage_Description,Dietary_Literacy_Level,Primary_Vulnerability,Intervention_Priority
+0–5yrs_M_LOW,0–5 yrs,Male,Low Awareness,Early Childhood (Critical 1000-Day Window),Score < 40: High Carb Reliance,Protein deficit + Vit D deficiency,URGENT: Stunting & severe microcytic anemia risk
+0–5yrs_M_MOD,0–5 yrs,Male,Moderate Awareness,Early Childhood (Critical 1000-Day Window),Score 40-70: Mixed Knowledge,Protein deficit + Vit D deficiency,HIGH: Complementary feeding literacy needed
+0–5yrs_M_HIG,0–5 yrs,Male,High Awareness,Early Childhood (Critical 1000-Day Window),Score > 70: Proactive Balanced Diet,Protein deficit + Vit D deficiency,MONITOR: Growth milestones tracking
+0–5yrs_F_LOW,0–5 yrs,Female,Low Awareness,Early Childhood (Critical 1000-Day Window),Score < 40: High Carb Reliance,Protein deficit + Iron/B12 deficiency,URGENT: Stunting & severe microcytic anemia risk
+0–5yrs_F_MOD,0–5 yrs,Female,Moderate Awareness,Early Childhood (Critical 1000-Day Window),Score 40-70: Mixed Knowledge,Protein deficit + Iron/B12 deficiency,HIGH: Complementary feeding literacy needed
+0–5yrs_F_HIG,0–5 yrs,Female,High Awareness,Early Childhood (Critical 1000-Day Window),Score > 70: Proactive Balanced Diet,Protein deficit + Iron/B12 deficiency,MONITOR: Growth milestones tracking
+6–19yrs_M_LOW,6–19 yrs,Male,Low Awareness,School-Age & Adolescent Growth Spurt,Score < 40: High Carb Reliance,Protein deficit + Vit D deficiency,HIGH: Adolescent anemia & cognitive fatigue
+6–19yrs_M_MOD,6–19 yrs,Male,Moderate Awareness,School-Age & Adolescent Growth Spurt,Score 40-70: Mixed Knowledge,Protein deficit + Vit D deficiency,MEDIUM: School nutrition & IFA compliance
+6–19yrs_M_HIG,6–19 yrs,Male,High Awareness,School-Age & Adolescent Growth Spurt,Score > 70: Proactive Balanced Diet,Protein deficit + Vit D deficiency,LOW: Sports & balanced macro guidance
+6–19yrs_F_LOW,6–19 yrs,Female,Low Awareness,School-Age & Adolescent Growth Spurt,Score < 40: High Carb Reliance,Protein deficit + Iron/B12 deficiency,HIGH: Adolescent anemia & cognitive fatigue
+6–19yrs_F_MOD,6–19 yrs,Female,Moderate Awareness,School-Age & Adolescent Growth Spurt,Score 40-70: Mixed Knowledge,Protein deficit + Iron/B12 deficiency,MEDIUM: School nutrition & IFA compliance
+6–19yrs_F_HIG,6–19 yrs,Female,High Awareness,School-Age & Adolescent Growth Spurt,Score > 70: Proactive Balanced Diet,Protein deficit + Iron/B12 deficiency,LOW: Sports & balanced macro guidance
+20–45yrs_M_LOW,20–45 yrs,Male,Low Awareness,Reproductive & Prime Economic Working Age,Score < 40: High Carb Reliance,Protein deficit + Vit D deficiency,URGENT: Maternal anemia & Double Burden of obesity/malnutrition
+20–45yrs_M_MOD,20–45 yrs,Male,Moderate Awareness,Reproductive & Prime Economic Working Age,Score 40-70: Mixed Knowledge,Protein deficit + Vit D deficiency,HIGH: Dietary diversification & protein adequacy
+20–45yrs_M_HIG,20–45 yrs,Male,High Awareness,Reproductive & Prime Economic Working Age,Score > 70: Proactive Balanced Diet,Protein deficit + Vit D deficiency,LOW: Preventive lifestyle nutrition
+20–45yrs_F_LOW,20–45 yrs,Female,Low Awareness,Reproductive & Prime Economic Working Age,Score < 40: High Carb Reliance,Protein deficit + Iron/B12 deficiency,URGENT: Maternal anemia & Double Burden of obesity/malnutrition
+20–45yrs_F_MOD,20–45 yrs,Female,Moderate Awareness,Reproductive & Prime Economic Working Age,Score 40-70: Mixed Knowledge,Protein deficit + Iron/B12 deficiency,HIGH: Dietary diversification & protein adequacy
+20–45yrs_F_HIG,20–45 yrs,Female,High Awareness,Reproductive & Prime Economic Working Age,Score > 70: Proactive Balanced Diet,Protein deficit + Iron/B12 deficiency,LOW: Preventive lifestyle nutrition
+46–60yrs_M_LOW,46–60 yrs,Male,Low Awareness,Middle Age & Metabolic Transition,Score < 40: High Carb Reliance,Protein deficit + Vit D deficiency,"HIGH: Sarcopenia, osteoporosis & diabetes comorbidity"
+46–60yrs_M_MOD,46–60 yrs,Male,Moderate Awareness,Middle Age & Metabolic Transition,Score 40-70: Mixed Knowledge,Protein deficit + Vit D deficiency,MEDIUM: Calcium & lean protein enhancement
+46–60yrs_M_HIG,46–60 yrs,Male,High Awareness,Middle Age & Metabolic Transition,Score > 70: Proactive Balanced Diet,Protein deficit + Vit D deficiency,LOW: Active aging nutrition
+46–60yrs_F_LOW,46–60 yrs,Female,Low Awareness,Middle Age & Metabolic Transition,Score < 40: High Carb Reliance,Protein deficit + Iron/B12 deficiency,"HIGH: Sarcopenia, osteoporosis & diabetes comorbidity"
+46–60yrs_F_MOD,46–60 yrs,Female,Moderate Awareness,Middle Age & Metabolic Transition,Score 40-70: Mixed Knowledge,Protein deficit + Iron/B12 deficiency,MEDIUM: Calcium & lean protein enhancement
+46–60yrs_F_HIG,46–60 yrs,Female,High Awareness,Middle Age & Metabolic Transition,Score > 70: Proactive Balanced Diet,Protein deficit + Iron/B12 deficiency,LOW: Active aging nutrition
+60+yrs_M_LOW,60+ yrs,Male,Low Awareness,Senior Adults & Geriatric Care,Score < 40: High Carb Reliance,Protein deficit + Vit D deficiency,"HIGH: Frailty, Vit B12 nerve neuropathy & B12 malabsorption"
+60+yrs_M_MOD,60+ yrs,Male,Moderate Awareness,Senior Adults & Geriatric Care,Score 40-70: Mixed Knowledge,Protein deficit + Vit D deficiency,MEDIUM: Bioavailable micronutrient fortification
+60+yrs_M_HIG,60+ yrs,Male,High Awareness,Senior Adults & Geriatric Care,Score > 70: Proactive Balanced Diet,Protein deficit + Vit D deficiency,LOW: Geriatric protein balance
+60+yrs_F_LOW,60+ yrs,Female,Low Awareness,Senior Adults & Geriatric Care,Score < 40: High Carb Reliance,Protein deficit + Iron/B12 deficiency,"HIGH: Frailty, Vit B12 nerve neuropathy & B12 malabsorption"
+60+yrs_F_MOD,60+ yrs,Female,Moderate Awareness,Senior Adults & Geriatric Care,Score 40-70: Mixed Knowledge,Protein deficit + Iron/B12 deficiency,MEDIUM: Bioavailable micronutrient fortification
+60+yrs_F_HIG,60+ yrs,Female,High Awareness,Senior Adults & Geriatric Care,Score > 70: Proactive Balanced Diet,Protein deficit + Iron/B12 deficiency,LOW: Geriatric protein balance

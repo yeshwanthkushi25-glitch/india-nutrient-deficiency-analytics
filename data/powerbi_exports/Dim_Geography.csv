@@ -1,0 +1,37 @@
+State_Key,State_Name,State_ISO,Region_Zone,Geographic_Type,Capital_City,Latitude,Longitude,Estimated_Population_2021_Cr,NFHS5_Survey_Cycle,ICMR_NIN_Zone_Classification
+IN-AN,Andaman and Nicobar Islands,IN-AN,East,UT,Port Blair,11.7401,92.6586,0.04,2019-2021,East Dietary Belt
+IN-AP,Andhra Pradesh,IN-AP,South,State,Amaravati,15.9129,79.74,5.28,2019-2021,South Dietary Belt
+IN-AR,Arunachal Pradesh,IN-AR,North-East,State,Itanagar,28.218,94.7278,0.15,2019-2021,North-East Dietary Belt
+IN-AS,Assam,IN-AS,North-East,State,Dispur,26.2006,92.9376,3.56,2019-2021,North-East Dietary Belt
+IN-BR,Bihar,IN-BR,East,State,Patna,25.0961,85.3131,12.3,2019-2021,East Dietary Belt
+IN-CH,Chandigarh,IN-CH,North,UT,Chandigarh,30.7333,76.7794,0.12,2019-2021,North Dietary Belt
+IN-CT,Chhattisgarh,IN-CT,Central,State,Raipur,21.2787,81.8661,2.94,2019-2021,Central Dietary Belt
+IN-DH,Dadra and Nagar Haveli and Daman and Diu,IN-DH,West,UT,Daman,20.1809,73.0169,0.06,2019-2021,West Dietary Belt
+IN-DL,Delhi,IN-DL,North,UT,New Delhi,28.7041,77.1025,2.03,2019-2021,North Dietary Belt
+IN-GA,Goa,IN-GA,West,State,Panaji,15.2993,74.124,0.16,2019-2021,West Dietary Belt
+IN-GJ,Gujarat,IN-GJ,West,State,Gandhinagar,22.2587,71.1924,7.04,2019-2021,West Dietary Belt
+IN-HR,Haryana,IN-HR,North,State,Chandigarh,29.0588,76.0856,2.89,2019-2021,North Dietary Belt
+IN-HP,Himachal Pradesh,IN-HP,North,State,Shimla,31.1048,77.1734,0.75,2019-2021,North Dietary Belt
+IN-JK,Jammu and Kashmir,IN-JK,North,UT,Srinagar / Jammu,33.7782,76.5762,1.36,2019-2021,North Dietary Belt
+IN-JH,Jharkhand,IN-JH,East,State,Ranchi,23.6102,85.2799,3.86,2019-2021,East Dietary Belt
+IN-KA,Karnataka,IN-KA,South,State,Bengaluru,15.3173,75.7139,6.68,2019-2021,South Dietary Belt
+IN-KL,Kerala,IN-KL,South,State,Thiruvananthapuram,10.8505,76.2711,3.55,2019-2021,South Dietary Belt
+IN-LA,Ladakh,IN-LA,North,UT,Leh,34.1526,77.5771,0.03,2019-2021,North Dietary Belt
+IN-LD,Lakshadweep,IN-LD,South,UT,Kavaratti,10.5667,72.6417,0.01,2019-2021,South Dietary Belt
+IN-MP,Madhya Pradesh,IN-MP,Central,State,Bhopal,22.9734,78.6569,8.5,2019-2021,Central Dietary Belt
+IN-MH,Maharashtra,IN-MH,West,State,Mumbai,19.7515,75.7139,12.49,2019-2021,West Dietary Belt
+IN-MN,Manipur,IN-MN,North-East,State,Imphal,24.6637,93.9063,0.32,2019-2021,North-East Dietary Belt
+IN-ML,Meghalaya,IN-ML,North-East,State,Shillong,25.467,91.3662,0.33,2019-2021,North-East Dietary Belt
+IN-MZ,Mizoram,IN-MZ,North-East,State,Aizawl,23.1645,92.9376,0.12,2019-2021,North-East Dietary Belt
+IN-NL,Nagaland,IN-NL,North-East,State,Kohima,26.1584,94.5624,0.22,2019-2021,North-East Dietary Belt
+IN-OR,Odisha,IN-OR,East,State,Bhubaneswar,20.9517,85.0985,4.57,2019-2021,East Dietary Belt
+IN-PY,Puducherry,IN-PY,South,UT,Puducherry,11.9416,79.8083,0.15,2019-2021,South Dietary Belt
+IN-PB,Punjab,IN-PB,North,State,Chandigarh,31.1471,75.3412,3.01,2019-2021,North Dietary Belt
+IN-RJ,Rajasthan,IN-RJ,North,State,Jaipur,27.0238,74.2179,7.93,2019-2021,North Dietary Belt
+IN-SK,Sikkim,IN-SK,North-East,State,Gangtok,27.533,88.5122,0.07,2019-2021,North-East Dietary Belt
+IN-TN,Tamil Nadu,IN-TN,South,State,Chennai,11.1271,78.6569,7.64,2019-2021,South Dietary Belt
+IN-TG,Telangana,IN-TG,South,State,Hyderabad,18.1124,79.0193,3.77,2019-2021,South Dietary Belt
+IN-TR,Tripura,IN-TR,North-East,State,Agartala,23.9408,91.9882,0.41,2019-2021,North-East Dietary Belt
+IN-UP,Uttar Pradesh,IN-UP,Central,State,Lucknow,26.8467,80.9462,23.15,2019-2021,Central Dietary Belt
+IN-UT,Uttarakhand,IN-UT,North,State,Dehradun,30.0668,79.0193,1.14,2019-2021,North Dietary Belt
+IN-WB,West Bengal,IN-WB,East,State,Kolkata,22.9868,87.855,9.86,2019-2021,East Dietary Belt

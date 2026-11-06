@@ -1,0 +1,24 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+
+# Raw intermediate CSV cache (master data is in .xlsx and powerbi_exports)
+data/raw_data_log.csv
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
