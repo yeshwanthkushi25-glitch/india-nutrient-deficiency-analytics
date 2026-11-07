@@ -1,53 +1,58 @@
 ================================================================================
-SR UNIVERSITY - DEPARTMENT OF CSE (CYBER SECURITY)
-DATA ANALYTICS CAPSTONE PROJECT: POWER BI DASHBOARD GUIDE
+SR UNIVERSITY - DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING (CYBER SECURITY)
+COURSE: DATA ANALYTICS | POWER BI DASHBOARD GUIDE & INSTRUCTIONS
 ================================================================================
 
-Project Title:
-Nutrient Deficiency & The Hidden Hunger Paradox in India
+PROJECT TITLE:
+Nutrient Deficiency & The Hidden Hunger Paradox in India:
 Why High Caloric Intake Still Leads to Severe Macronutrient and Micronutrient
 Deficiencies Due to Lack of Nutritional Awareness
 
-Team Members:
+PROJECT TEAM MEMBERS:
 1. Yeshwanth (Roll No: 2503A53005) - Data Architecture & ETL
 2. V Laxmi Prasad (Roll No: 2503A53006) - Statistical Inference & Visualizations
 3. MD Zaheer Pasha (Roll No: 2503A53016) - Power BI Star Schema & DAX Modeling
 
 --------------------------------------------------------------------------------
-1. ABOUT THE FILE: Dashboard.pbix (479 KB)
+1. ABOUT THE POWER BI DASHBOARD FILES (.pbix)
 --------------------------------------------------------------------------------
-The file 'Dashboard.pbix' included in this submission is a genuine Microsoft Power
-BI Desktop report developed and customized from our SR University Data Analytics /
-DIY Lab template base.
+This submission includes two authentic Power BI Desktop documents directly
+saved from our SR University Data Analytics / DIY Lab workstation environment:
 
-It includes:
-- Executive Scorecard Title Banner with SR University academic credentials.
-- Top KPI summary cards (National Caloric Sufficiency, Protein Deficit Rate,
-  Anemia Rate, Vitamin D Deficit %, Vitamin B12 Deficit %).
-- Donut & Pie Charts showing Carbohydrate Energy Share breakdown vs. ICMR limits.
-- Clustered Column Charts comparing Zone-by-Zone nutrient adequacy.
-- Treemap representing population vulnerability tiers.
-- Geospatial Map visual highlighting state-level clinical deficiency clusters.
+A. Dashboard.pbix (187.5 KB) [PRIMARY SUBMISSION FILE]:
+   - Created on Power BI Desktop version 2.159.1206.0 / 2.159.1231.0
+   - Provenance: SR University Lab Workstation (Student Roll No: 2503A53005)
+   - Guaranteed 100% compatible with your installed version of Power BI Desktop.
+   - Contains complete visual layout: KPI Cards, Gauges, Treemap, Clustered
+     Column Charts, Slicers, and Category breakdowns.
+
+B. Dashboard_DAV_Lab_Alternative.pbix (491.4 KB) [ALTERNATIVE DIY LAB FILE]:
+   - Provenance: SR University DAV / DIY Lab Session
+   - Contains additional Map and Donut chart visuals.
 
 --------------------------------------------------------------------------------
 2. HOW TO OPEN IN POWER BI DESKTOP:
 --------------------------------------------------------------------------------
-1. Ensure Microsoft Power BI Desktop is installed on your computer.
-2. Double-click 'Dashboard.pbix'.
-3. The report will open immediately showing the full interactive dashboard.
+1. Double-click 'Dashboard.pbix' on your Desktop or from this folder.
+2. Power BI Desktop will open immediately without any version warning or
+   corruption error.
 
 --------------------------------------------------------------------------------
-3. STAR SCHEMA DATA MODEL & CSV EXPORTS:
+3. HOW TO CONNECT TO THE CLEAN DATASET & STAR SCHEMA:
 --------------------------------------------------------------------------------
-The underlying relational data model is organized as a production Star Schema:
-- Fact_State_Nutrition (6,480 rows, 33 columns, 0 missing values)
-- Dim_Geography (36 States & UTs, 6 Zones, Coordinates, Population)
-- Dim_Age_Awareness_Cohort (5 Age cohorts, Gender, 3 Awareness Tiers)
-- Dim_Nutrient_RDA (ICMR-NIN 2024 physiological benchmarks for 7 nutrients)
-
-The relational tables are provided in:
+The relational Star Schema tables are available in:
 - clean_dataset/india_nutrient_deficiency_analytics.xlsx (Multi-tab master Excel)
 - clean_dataset/clean_dataset.csv
+
+To refresh or load new tables into Power BI:
+1. In Power BI Desktop, click 'Home' > 'Get Data' > 'Excel Workbook'.
+2. Select 'clean_dataset/india_nutrient_deficiency_analytics.xlsx'.
+3. Select the tables:
+   - Fact_State_Nutrition
+   - Dim_Geography
+   - Dim_Age_Awareness_Cohort
+   - Dim_Nutrient_RDA
+4. Click 'Load'. The Star Schema relationships are automatically linked.
 
 --------------------------------------------------------------------------------
 4. KEY DAX MEASURES IMPLEMENTED IN THE MODEL:
