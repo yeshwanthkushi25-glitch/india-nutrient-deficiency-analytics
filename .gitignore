@@ -25,6 +25,8 @@ desktop.ini
 
 # Packages and archives
 *.zip
+google_classroom_submission/
+clean_submission_package/
 
 # IDE & Editor artifacts
 .vscode/
