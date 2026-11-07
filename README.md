@@ -3,7 +3,7 @@
 
 [![Public Health Standards](https://img.shields.io/badge/Standards-ICMR--NIN%202024%20%7C%20NFHS--5-blue.svg)](https://nin.res.in/)
 [![Power BI Ready](https://img.shields.io/badge/Data%20Model-Star%20Schema%20(Power%20BI)-F2C811.svg)](#power-bi-star-schema--modeling)
-[![Interactive Dashboard](https://img.shields.io/badge/Live%20Dashboard-GitHub%20Pages-10b981.svg)](#interactive-web-application)
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-GitHub%20Pages-10b981.svg)](https://yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/)
 [![Coverage](https://img.shields.io/badge/Geography-28%20States%20%2B%208%20UTs-darkgreen.svg)](#geographical--demographic-coverage)
 
 ---
