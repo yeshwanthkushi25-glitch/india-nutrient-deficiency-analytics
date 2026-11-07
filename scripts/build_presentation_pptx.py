@@ -1,32 +1,37 @@
 import os
-from pptx import Presentation
+import pptx
 from pptx.util import Inches, Pt
+from pptx.enum.shapes import MSO_SHAPE
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
-from pptx.enum.shapes import MSO_SHAPE
 
 def create_presentation():
-    prs = Presentation()
-    # Set 16:9 Widescreen dimensions
+    prs = pptx.Presentation()
+    # 16:9 Widescreen standard
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
 
-    NAVY = RGBColor(15, 23, 42)      # #0f172a
-    BLUE = RGBColor(37, 99, 235)     # #2563eb
-    WHITE = RGBColor(255, 255, 255)
-    LIGHT_GRAY = RGBColor(241, 245, 249)
-    TEXT_DARK = RGBColor(30, 41, 59)
-    SLATE = RGBColor(100, 116, 139)
-    CRIMSON = RGBColor(225, 29, 72)
-    EMERALD = RGBColor(16, 185, 129)
-
     blank_layout = prs.slide_layouts[6]
 
-    def add_header(slide, title_text, category="DATA ANALYTICS CAPSTONE PROJECT"):
-        # Header banner
-        header_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.7), Inches(1.1))
-        tf = header_box.text_frame
+    # Color Palette
+    NAVY = RGBColor(15, 23, 42)          # Slate 900
+    SLATE = RGBColor(71, 85, 105)        # Slate 600
+    LIGHT_GRAY = RGBColor(248, 250, 252) # Slate 50
+    CARD_BG = RGBColor(255, 255, 255)    # White
+    CARD_BORDER = RGBColor(226, 232, 240)# Slate 200
+    BLUE = RGBColor(37, 99, 235)         # Blue 600
+    DARK_BLUE = RGBColor(30, 58, 138)    # Blue 900
+    CRIMSON = RGBColor(225, 29, 72)      # Rose 600
+    AMBER = RGBColor(217, 119, 6)        # Amber 600
+    EMERALD = RGBColor(16, 185, 129)     # Emerald 500
+    WHITE = RGBColor(255, 255, 255)
+    TEXT_DARK = RGBColor(30, 41, 59)     # Slate 800
+
+    def add_header(slide, title_text, category="CAPSTONE DATA ANALYTICS PROJECT"):
+        tb = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.733), Inches(1.1))
+        tf = tb.text_frame
         tf.word_wrap = True
+        tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
         
         p_cat = tf.paragraphs[0]
         p_cat.text = category.upper()
@@ -36,20 +41,20 @@ def create_presentation():
         
         p_tit = tf.add_paragraph()
         p_tit.text = title_text
-        p_tit.font.size = Pt(22)
+        p_tit.font.size = Pt(21)
         p_tit.font.bold = True
         p_tit.font.color.rgb = NAVY
 
-    # -------------------------------------------------------------
+    # =========================================================================
     # SLIDE 1: Title Slide (Dark Theme)
-    # -------------------------------------------------------------
+    # =========================================================================
     s1 = prs.slides.add_slide(blank_layout)
     bg1 = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
     bg1.fill.solid()
     bg1.fill.fore_color.rgb = NAVY
     bg1.line.color.rgb = NAVY
 
-    tb1 = s1.shapes.add_textbox(Inches(1.0), Inches(1.2), Inches(11.333), Inches(3.0))
+    tb1 = s1.shapes.add_textbox(Inches(1.0), Inches(0.9), Inches(11.333), Inches(3.2))
     tf1 = tb1.text_frame
     tf1.word_wrap = True
 
@@ -57,7 +62,7 @@ def create_presentation():
     p.text = "SR UNIVERSITY • DEPARTMENT OF CSE (CYBER SECURITY) • DATA ANALYTICS"
     p.font.size = Pt(12)
     p.font.bold = True
-    p.font.color.rgb = BLUE
+    p.font.color.rgb = RGBColor(96, 165, 250)
 
     p = tf1.add_paragraph()
     p.text = "Nutrient Deficiency & The Hidden Hunger Paradox in India"
@@ -67,135 +72,143 @@ def create_presentation():
 
     p = tf1.add_paragraph()
     p.text = "Why High Caloric Intake Still Leads to Severe Micronutrient and Macronutrient Deficiencies Due to Lack of Nutritional Awareness"
-    p.font.size = Pt(15)
+    p.font.size = Pt(14)
     p.font.color.rgb = RGBColor(203, 213, 225)
 
     # Team Members Card
-    team_box = s1.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(1.0), Inches(4.5), Inches(11.333), Inches(2.2))
+    team_box = s1.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(1.0), Inches(4.3), Inches(11.333), Inches(2.5))
     team_box.fill.solid()
     team_box.fill.fore_color.rgb = RGBColor(30, 41, 59)
     team_box.line.color.rgb = RGBColor(51, 65, 85)
 
-    tb_t = s1.shapes.add_textbox(Inches(1.2), Inches(4.6), Inches(10.9), Inches(2.0))
+    tb_t = s1.shapes.add_textbox(Inches(1.3), Inches(4.45), Inches(10.7), Inches(2.2))
     tf_t = tb_t.text_frame
     p = tf_t.paragraphs[0]
-    p.text = "PROJECT TEAM (SR UNIVERSITY - B.TECH CSE CYBER SECURITY):"
+    p.text = "PROJECT TEAM & CREDENTIALS (SR UNIVERSITY - B.TECH CSE CYBER SECURITY):"
     p.font.size = Pt(11)
     p.font.bold = True
     p.font.color.rgb = RGBColor(245, 158, 11)
 
     members_text = [
-        "• Yeshwanth (Roll No: 2503A53005) - Data Architecture, ETL Pipeline & Geospatial Modeling",
-        "• V Laxmi Prasad (Roll No: 2503A53006) - Statistical Inference, EDA & Python Visualizations",
-        "• MD Zaheer Pasha (Roll No: 2503A53016) - Power BI Star Schema, DAX & Frontend Dashboard"
+        ("Yeshwanth", "2503A53005", "Data Architecture, ETL Pipeline & Geospatial Modeling"),
+        ("V Laxmi Prasad", "2503A53006", "Statistical Inference, EDA & Python Visualizations"),
+        ("MD Zaheer Pasha", "2503A53016", "Power BI Star Schema, DAX & Frontend Dashboard")
     ]
-    for m in members_text:
+    for name, roll, role in members_text:
         p = tf_t.add_paragraph()
-        p.text = m
-        p.font.size = Pt(12)
+        p.text = f"• {name} (Roll No: {roll})  —  {role}"
+        p.font.size = Pt(11.5)
         p.font.color.rgb = WHITE
 
-    # -------------------------------------------------------------
-    # SLIDE 2: The Core Problem & The Paradox
-    # -------------------------------------------------------------
-    s2 = prs.slides.add_slide(blank_layout)
-    add_header(s2, "The Core Clinical Paradox: 'Full Stomach, Starving Body'")
+    p_links = tf_t.add_paragraph()
+    p_links.text = "\nPublic GitHub: github.com/yeshwanthkushi25-glitch/india-nutrient-deficiency-analytics  |  Live App: yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/"
+    p_links.font.size = Pt(9.5)
+    p_links.font.color.rgb = RGBColor(147, 197, 253)
 
-    # Left Card: The Paradox Reality
-    c1 = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(5.6), Inches(4.8))
+    # =========================================================================
+    # SLIDE 2: The Core Problem & The Paradox
+    # =========================================================================
+    s2 = prs.slides.add_slide(blank_layout)
+    add_header(s2, "The Core Clinical Paradox: 'Full Stomach, Starving Body'", "PROBLEM STATEMENT & EPIDEMIOLOGY")
+
+    # Left Card: The Myth
+    c1 = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.4))
     c1.fill.solid()
     c1.fill.fore_color.rgb = LIGHT_GRAY
-    c1.line.color.rgb = RGBColor(226, 232, 240)
+    c1.line.color.rgb = CARD_BORDER
 
-    tb_c1 = s2.shapes.add_textbox(Inches(1.0), Inches(2.0), Inches(5.2), Inches(4.4))
+    tb_c1 = s2.shapes.add_textbox(Inches(1.0), Inches(1.8), Inches(5.2), Inches(5.0))
     tf_c1 = tb_c1.text_frame
     tf_c1.word_wrap = True
     p = tf_c1.paragraphs[0]
     p.text = "The Caloric Adequacy Myth"
-    p.font.size = Pt(18)
+    p.font.size = Pt(17)
     p.font.bold = True
     p.font.color.rgb = NAVY
 
     points1 = [
-        "• Historical public health focused on caloric famine alleviation.",
-        "• Today, national daily calorie intake averages 99.6% - 102.4% fulfillment.",
-        "• Diets are saturated with refined carbs (white rice, maida, sugar).",
-        "• 70.2% of total daily energy comes from carbohydrates (ICMR limit: <55%).",
-        "• Result: The stomach is satiated, but human cells remain severely starved of essential proteins and micronutrients."
+        "• Historical Food Security Success: Public distribution schemes largely eliminated caloric famine.",
+        "• National Caloric Sufficiency: Averages 99.6% - 102.4% fulfillment across states.",
+        "• Carbohydrate Satiety Saturation: 70.2% of total daily energy is derived from carbohydrates (ICMR ceiling: <55%).",
+        "• Staple Reliance: Polished white rice and refined wheat atta dominate every meal.",
+        "• Clinical Deception: Full stomach feelings create the false perception of complete nourishment."
     ]
     for pt in points1:
         p = tf_c1.add_paragraph()
         p.text = pt
-        p.font.size = Pt(13)
+        p.font.size = Pt(12)
         p.font.color.rgb = TEXT_DARK
 
     # Right Card: The Clinical Reality
-    c2 = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.8), Inches(5.7), Inches(4.8))
+    c2 = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.4))
     c2.fill.solid()
-    c2.fill.fore_color.rgb = RGBColor(255, 241, 242) # soft rose
+    c2.fill.fore_color.rgb = RGBColor(255, 241, 242)
     c2.line.color.rgb = RGBColor(254, 205, 211)
 
-    tb_c2 = s2.shapes.add_textbox(Inches(7.0), Inches(2.0), Inches(5.3), Inches(4.4))
+    tb_c2 = s2.shapes.add_textbox(Inches(7.0), Inches(1.8), Inches(5.3), Inches(5.0))
     tf_c2 = tb_c2.text_frame
     tf_c2.word_wrap = True
     p = tf_c2.paragraphs[0]
-    p.text = "The Severe Cellular Deficit"
-    p.font.size = Pt(18)
+    p.text = "The Cellular Starvation Reality"
+    p.font.size = Pt(17)
     p.font.bold = True
     p.font.color.rgb = CRIMSON
 
     points2 = [
         "• 74.6% Population Protein Inadequacy: Average daily intake is only 17.9g vs. 41.2g reference RDA (56.5% deficit).",
-        "• 56.6% Anemia Prevalence: Reaching 67.1% in children under 5 and 57.0% in women of reproductive age.",
-        "• 75.6% Vitamin D Deficiency: Widespread across urban & indoor rural belts.",
-        "• 66.6% Vitamin B12 Deficiency: Surpassing 78% in strict vegetarian states.",
-        "• Root Cause: Low Nutritional Literacy (Score: 46.8/100) perpetuates unbalanced plate composition."
+        "• 56.6% Anemia Prevalence: Reaching 67.1% in children 6-59m and 57.0% in women of reproductive age.",
+        "• 75.6% Vitamin D Deficiency: Widespread across both urban and rural populations due to sunlight melanin shielding.",
+        "• 66.6% Vitamin B12 Deficiency: Exceeding 78% in strict vegetarian states (e.g. Gujarat, Rajasthan).",
+        "• The Driving Factor: Low Nutritional Literacy Score (46.8/100) perpetuates unbalanced plate composition."
     ]
     for pt in points2:
         p = tf_c2.add_paragraph()
         p.text = pt
-        p.font.size = Pt(13)
+        p.font.size = Pt(12)
         p.font.color.rgb = TEXT_DARK
 
-    # -------------------------------------------------------------
-    # SLIDE 3: Data Sources & Grounding Benchmarks
-    # -------------------------------------------------------------
+    # =========================================================================
+    # SLIDE 3: Grounding Standards & Authoritative Benchmarks
+    # =========================================================================
     s3 = prs.slides.add_slide(blank_layout)
-    add_header(s3, "Epidemiological Benchmarks & Data Grounding")
+    add_header(s3, "Epidemiological Benchmarks & Clinical Standards", "PUBLIC HEALTH FOUNDATIONS")
 
     boxes_s3 = [
         ("ICMR-NIN 2024 Guidelines", BLUE, [
-            "Dietary Guidelines for Indians (DGI) 2024",
+            "Dietary Guidelines for Indians (DGI 2024)",
             "Protein RDA: 0.83 g/kg/day (54g M / 46g F)",
-            "Carbohydrate Energy Share Cap: 45%–55%",
+            "Carbohydrate Energy Share: Capped at 45%–55%",
             "Calcium RDA: 1000 mg/day (Macro-mineral)",
-            "Iron RDA: 19 mg (M) / 29 mg (F reproductive)"
+            "Iron RDA: 19 mg (M) / 29 mg (F reproductive)",
+            "Vitamin D3: 600 IU/day reference requirement"
         ]),
         ("NFHS-5 (2019–2021) Survey", CRIMSON, [
             "National Family Health Survey Fact Sheets",
-            "Anemia in Children (6-59m): 67.1% national",
-            "Anemia in Women (15-49y): 57.0% national",
-            "Stunting: 35.5% | Wasting: 19.3%",
-            "Double Burden: 24% Overweight + Malnourished"
+            "Anemia in Children (6-59m): 67.1% nationwide",
+            "Anemia in Women (15-49y): 57.0% nationwide",
+            "Child Stunting (Height-for-Age): 35.5%",
+            "Child Wasting (Weight-for-Height): 19.3%",
+            "Double Burden: 24% Overweight & Malnourished"
         ]),
-        ("CNNS Biochemical Survey", RGBColor(16, 185, 129), [
+        ("CNNS Biochemical Survey", EMERALD, [
             "Comprehensive National Nutrition Survey",
-            "Serum ferritin biochemical assessments",
+            "Direct biochemical serum ferritin testing",
             "Vitamin B12 serum level assays (<203 pg/mL)",
-            "Serum 25(OH)D testing (<20 ng/mL)",
-            "Zinc and Folate plasma level evaluations"
+            "Serum 25(OH)D testing (<20 ng/mL cutoff)",
+            "Zinc and Folate plasma level evaluations",
+            "Empirical foundation for synthetic stratification"
         ])
     ]
 
     for idx, (title, color, items) in enumerate(boxes_s3):
         x = Inches(0.8 + idx * 3.95)
-        box = s3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(1.8), Inches(3.75), Inches(4.8))
+        box = s3.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(1.6), Inches(3.75), Inches(5.4))
         box.fill.solid()
         box.fill.fore_color.rgb = LIGHT_GRAY
         box.line.color.rgb = color
         box.line.width = Pt(2)
 
-        tb = s3.shapes.add_textbox(x + Inches(0.15), Inches(2.0), Inches(3.45), Inches(4.4))
+        tb = s3.shapes.add_textbox(x + Inches(0.15), Inches(1.8), Inches(3.45), Inches(5.0))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
@@ -210,312 +223,390 @@ def create_presentation():
             p.font.size = Pt(11.5)
             p.font.color.rgb = TEXT_DARK
 
-    # -------------------------------------------------------------
-    # SLIDE 4: Data Preprocessing & Cleaning Pipeline
-    # -------------------------------------------------------------
+    # =========================================================================
+    # SLIDE 4: Data Engineering, Cleaning & Star Schema
+    # =========================================================================
     s4 = prs.slides.add_slide(blank_layout)
-    add_header(s4, "Data Preprocessing, Cleaning & Feature Engineering")
+    add_header(s4, "Data Preprocessing, Cleaning & Star Schema Modeling", "ETL & RELATIONAL ARCHITECTURE")
 
+    # Left: ETL Steps
     steps = [
-        ("1. Ingestion of Raw Data Log", "Dataset/raw_dataset.csv (6,642 rows) containing demonstrable real-world dirty artifacts for academic demonstration."),
-        ("2. Deduplication", "Scanned and eliminated 162 exact duplicate records, restoring statistical purity (6,480 valid factual rows)."),
-        ("3. String Normalization", "Resolved state naming anomalies ('Orissa' -> 'Odisha', 'Uttaranchal' -> 'Uttarakhand', 'Pondicherry' -> 'Puducherry', 'Delhi NCT' -> 'Delhi')."),
-        ("4. Missing Value Imputation", "Imputed 370 missing entries in Nutritional Literacy Score and Fiber using demographic group medians (Zone × Tier). Zero NaNs."),
-        ("5. Range Validation & Clipping", "Constrained all percentage indicators within valid physiological boundaries [0.0%, 100.0%]."),
-        ("6. Engineered Features", "Computed Protein_Deficit_Pct, Caloric_Sufficiency_Pct, Hidden_Hunger_Severity_Index, and Awareness_to_Deficiency_Ratio.")
+        ("1. Ingestion of Raw Data Log", "raw_dataset.csv (6,642 rows) containing demonstrable dirty artifacts for academic grading."),
+        ("2. Deduplication", "Eliminated 162 duplicate records, restoring statistical purity (6,480 valid factual rows)."),
+        ("3. String Normalization", "Unified state name aliases ('Orissa' -> 'Odisha', 'Pondicherry' -> 'Puducherry', etc.)."),
+        ("4. Median Imputation", "Imputed 370 missing literacy & fiber values using Zone x Tier medians. 0 NaNs remaining."),
+        ("5. Range Validation & Clipping", "Validated physiological ranges [0%, 100%] with zero boundary violations."),
+        ("6. Engineered Features", "Computed Protein_Deficit_Pct, Hidden_Hunger_Index, and Awareness_to_Deficiency_Ratio.")
     ]
 
-    for idx, (step_title, step_desc) in enumerate(steps):
-        col = idx % 2
-        row = idx // 2
-        x = Inches(0.8 + col * 5.9)
-        y = Inches(1.8 + row * 1.6)
-
-        b = s4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, y, Inches(5.6), Inches(1.4))
+    for idx, (st, sd) in enumerate(steps):
+        y = Inches(1.6 + idx * 0.9)
+        b = s4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), y, Inches(5.6), Inches(0.82))
         b.fill.solid()
         b.fill.fore_color.rgb = LIGHT_GRAY
-        b.line.color.rgb = RGBColor(203, 213, 225)
+        b.line.color.rgb = CARD_BORDER
 
-        tb = s4.shapes.add_textbox(x + Inches(0.15), y + Inches(0.1), Inches(5.3), Inches(1.2))
+        tb = s4.shapes.add_textbox(Inches(0.9), y + Inches(0.04), Inches(5.4), Inches(0.74))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
-        p.text = step_title
-        p.font.size = Pt(13)
+        p.text = st
+        p.font.size = Pt(11)
         p.font.bold = True
-        p.font.color.rgb = NAVY
-
+        p.font.color.rgb = BLUE
         p = tf.add_paragraph()
-        p.text = step_desc
-        p.font.size = Pt(10.5)
-        p.font.color.rgb = SLATE
-
-    # -------------------------------------------------------------
-    # SLIDE 5: Star Schema Relational Data Architecture
-    # -------------------------------------------------------------
-    s5 = prs.slides.add_slide(blank_layout)
-    add_header(s5, "Star Schema Architecture (Power BI Ready)")
-
-    # Fact Box
-    fact = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(4.5), Inches(2.2), Inches(4.3), Inches(4.2))
-    fact.fill.solid()
-    fact.fill.fore_color.rgb = RGBColor(238, 242, 255)
-    fact.line.color.rgb = BLUE
-    fact.line.width = Pt(2)
-
-    tb_f = s5.shapes.add_textbox(Inches(4.6), Inches(2.3), Inches(4.1), Inches(4.0))
-    tf_f = tb_f.text_frame
-    tf_f.word_wrap = True
-    p = tf_f.paragraphs[0]
-    p.text = "Fact_State_Nutrition (Fact Table)"
-    p.font.size = Pt(14)
-    p.font.bold = True
-    p.font.color.rgb = BLUE
-
-    fact_cols = [
-        "PK: Fact_ID (6,480 rows, 33 columns)",
-        "FK: State_Key (State ISO)",
-        "FK: Cohort_Key (Age + Gender + Tier)",
-        "• Avg_Daily_Calorie_Intake_kcal",
-        "• Carbohydrate_Energy_Share_Pct (70.2%)",
-        "• Protein_Deficit_Pct (56.5%)",
-        "• Iron_Deficiency_Anemia_Pct (56.6%)",
-        "• Vitamin_D_Deficiency_Pct (75.6%)",
-        "• Vitamin_B12_Deficiency_Pct (66.6%)",
-        "• Hidden_Hunger_Severity_Index (71.0)"
-    ]
-    for c in fact_cols:
-        p = tf_f.add_paragraph()
-        p.text = c
+        p.text = sd
         p.font.size = Pt(9.5)
         p.font.color.rgb = TEXT_DARK
 
-    # Dim 1: Geography (Left)
-    d1 = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(2.2), Inches(3.3), Inches(4.2))
-    d1.fill.solid()
-    d1.fill.fore_color.rgb = LIGHT_GRAY
-    d1.line.color.rgb = RGBColor(16, 185, 129)
-    tb_d1 = s5.shapes.add_textbox(Inches(0.9), Inches(2.3), Inches(3.1), Inches(4.0))
-    tf_d1 = tb_d1.text_frame
-    p = tf_d1.paragraphs[0]
-    p.text = "Dim_Geography (1:N)"
-    p.font.size = Pt(13)
+    # Right: Star Schema Architecture
+    sc_card = s4.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.4))
+    sc_card.fill.solid()
+    sc_card.fill.fore_color.rgb = RGBColor(238, 242, 255)
+    sc_card.line.color.rgb = BLUE
+    sc_card.line.width = Pt(1.5)
+
+    tb_sc = s4.shapes.add_textbox(Inches(7.0), Inches(1.8), Inches(5.3), Inches(5.0))
+    tf_sc = tb_sc.text_frame
+    tf_sc.word_wrap = True
+    p = tf_sc.paragraphs[0]
+    p.text = "Production Star Schema Architecture"
+    p.font.size = Pt(15)
     p.font.bold = True
-    p.font.color.rgb = RGBColor(5, 150, 105)
-    for c in ["PK: State_Key", "• State_Name (36 States/UTs)", "• Region_Zone (6 Zones)", "• Latitude & Longitude", "• Capital_City", "• Estimated_Population_Cr"]:
-        p = tf_d1.add_paragraph()
-        p.text = c
-        p.font.size = Pt(10)
+    p.font.color.rgb = DARK_BLUE
 
-    # Dim 2: Cohort (Right)
-    d2 = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(9.2), Inches(2.2), Inches(3.3), Inches(4.2))
-    d2.fill.solid()
-    d2.fill.fore_color.rgb = LIGHT_GRAY
-    d2.line.color.rgb = RGBColor(245, 158, 11)
-    tb_d2 = s5.shapes.add_textbox(Inches(9.3), Inches(2.3), Inches(3.1), Inches(4.0))
-    tf_d2 = tb_d2.text_frame
-    p = tf_d2.paragraphs[0]
-    p.text = "Dim_Age_Cohort (1:N)"
-    p.font.size = Pt(13)
-    p.font.bold = True
-    p.font.color.rgb = RGBColor(217, 119, 6)
-    for c in ["PK: Cohort_Key", "• Age_Group (5 cohorts)", "• Gender (Male/Female)", "• Awareness_Tier (3 Tiers)", "• Life_Stage_Description", "• Intervention_Priority"]:
-        p = tf_d2.add_paragraph()
-        p.text = c
-        p.font.size = Pt(10)
-
-    # -------------------------------------------------------------
-    # SLIDE 6: Macro & Micronutrient Fulfillment Analysis
-    # -------------------------------------------------------------
-    s6 = prs.slides.add_slide(blank_layout)
-    add_header(s6, "Intake vs. Physiological RDA Benchmark (% Fulfillment)")
-
-    table_data = [
-        ("Daily Caloric Intake", "1,742.0 kcal", "1,734.7 kcal", "99.6% (Sufficient / Surplus)", "Energy satiety met through refined staples", EMERALD),
-        ("Carbohydrate Energy Share", "< 55.0%", "70.2%", "142.0% (Excessive Burden)", "Refined polished rice and wheat dominance", RGBColor(245, 158, 11)),
-        ("Daily Protein Intake", "41.2 g/day", "17.9 g/day", "56.5% Deficit (Severe Gap)", "Muscle wasting, sarcopenia, and stunting", CRIMSON),
-        ("Iron (Anemia-Free Status)", "< 20.0%", "56.6%", "43.4% Fulfillment (Crisis)", "Microcytic anemia in 67% toddlers & 57% women", CRIMSON),
-        ("Vitamin D3 (Cholecalciferol)", "600 IU/day", "145.8 IU", "24.3% Fulfillment (Severe)", "Indoor lifestyle, high melanin, lack of fortification", CRIMSON),
-        ("Vitamin B12 (Cobalamin)", "2.2 mcg/day", "0.83 mcg", "37.6% Fulfillment (Severe)", "Critical in vegetarian populations (>78% deficit)", CRIMSON),
-        ("Calcium (Macro-Mineral)", "1000 mg/day", "421.0 mg", "42.1% Fulfillment (Inadequate)", "Osteopenia, dental deterioration, osteoporosis", CRIMSON)
+    schema_points = [
+        "• Fact_State_Nutrition (Central Fact Table):",
+        "   - PK: Fact_ID (6,480 rows, 33 columns, 0 NaNs)",
+        "   - FK: State_Key, FK: Cohort_Key",
+        "   - Metrics: Calorie Intake, Protein Deficit %, Anemia %, Vit D %, B12 %, Hidden Hunger Index",
+        "• Dim_Geography (1:N Relationship):",
+        "   - PK: State_Key (36 States & UTs, 6 Zones, Coordinates)",
+        "• Dim_Age_Cohort (1:N Relationship):",
+        "   - PK: Cohort_Key (5 Age Groups, Gender, 3 Awareness Tiers)",
+        "• Dim_Nutrient_RDA (1:N Reference):",
+        "   - 7 Core Nutrients with ICMR 2024 Reference Thresholds",
+        "• Optimized for zero-lag filtering in Power BI Desktop & Web UI."
     ]
-
-    t_s6 = s6.shapes.add_table(rows=8, cols=5, left=Inches(0.8), top=Inches(1.8), width=Inches(11.733), height=Inches(4.8))
-    heads = ["Nutrient Metric", "ICMR-NIN RDA Benchmark", "Actual National Mean", "% Fulfillment Status", "Clinical Consequence"]
-    for j, h in enumerate(heads):
-        cell = t_s6.table.cell(0, j)
-        cell.text = h
-        cell.fill.solid()
-        cell.fill.fore_color.rgb = NAVY
-        for r in cell.text_frame.paragraphs[0].runs:
-            r.font.bold = True
-            r.font.size = Pt(10.5)
-            r.font.color.rgb = WHITE
-
-    for i, row in enumerate(table_data, start=1):
-        for j in range(5):
-            cell = t_s6.table.cell(i, j)
-            cell.text = row[j]
-            for r in cell.text_frame.paragraphs[0].runs:
-                r.font.size = Pt(9.5)
-                if j == 3:
-                    r.font.bold = True
-                    r.font.color.rgb = row[5]
-
-    # -------------------------------------------------------------
-    # SLIDE 7: Geospatial Hotspots & Zonal Analysis
-    # -------------------------------------------------------------
-    s7 = prs.slides.add_slide(blank_layout)
-    add_header(s7, "Geospatial State Analysis & Zonal Deficit Hotspots")
-
-    zonal_data = [
-        ("Central Zone (UP, MP, Chhattisgarh)", "77.7 / 100", "78.2%", "58.9%", "33.7 / 100", "Critical Hidden Hunger: Polished cereal dependency, lowest literacy."),
-        ("Eastern Zone (Bihar, WB, Odisha, Jharkhand)", "77.8 / 100", "76.2%", "65.7%", "38.4 / 100", "Severe Anemia Belt: Highest anemia (>65%) and high carbohydrate share."),
-        ("Western Zone (Gujarat, Maharashtra, Goa)", "69.8 / 100", "79.0%", "58.3%", "48.1 / 100", "B12 & Protein Gap: Vegetarian belt with high B12 deficit in Gujarat."),
-        ("Northern Zone (Punjab, Haryana, Rajasthan)", "69.7 / 100", "80.6%", "59.9%", "49.4 / 100", "Vitamin D Crisis: High dairy buffers protein, but Vit D remains suppressed."),
-        ("Southern Zone (TN, Kerala, Karnataka, TS, AP)", "68.3 / 100", "74.3%", "53.5%", "52.0 / 100", "Higher Awareness Buffer: Kerala lowest hidden hunger (56.7/100)."),
-        ("North-East Zone (Assam, Meghalaya, etc.)", "68.6 / 100", "68.3%", "48.3%", "49.0 / 100", "Dietary Diversity: Higher intake of indigenous greens and animal protein.")
-    ]
-
-    t_s7 = s7.shapes.add_table(rows=7, cols=6, left=Inches(0.8), top=Inches(1.8), width=Inches(11.733), height=Inches(4.8))
-    heads7 = ["Geographic Zone", "Hidden Hunger Index", "Vit D Deficit", "Anemia Rate", "Literacy Score", "Dietary Characterization"]
-    for j, h in enumerate(heads7):
-        cell = t_s7.table.cell(0, j)
-        cell.text = h
-        cell.fill.solid()
-        cell.fill.fore_color.rgb = NAVY
-        for r in cell.text_frame.paragraphs[0].runs:
-            r.font.bold = True
-            r.font.size = Pt(10)
-            r.font.color.rgb = WHITE
-
-    for i, row in enumerate(zonal_data, start=1):
-        for j in range(6):
-            cell = t_s7.table.cell(i, j)
-            cell.text = row[j]
-            for r in cell.text_frame.paragraphs[0].runs:
-                r.font.size = Pt(9.5)
-
-    # -------------------------------------------------------------
-    # SLIDE 8: Statistical Correlation (Literacy vs. Deficiencies)
-    # -------------------------------------------------------------
-    s8 = prs.slides.add_slide(blank_layout)
-    add_header(s8, "Statistical Inference: Nutritional Literacy as the Prime Buffer")
-
-    # Key Metric Highlight Cards
-    corr_cards = [
-        ("r = -0.916", "Nutritional Literacy vs. Hidden Hunger Severity", "Extremely strong inverse correlation (p < 0.001). Demonstrates that dietary knowledge is the single strongest suppressor of the hidden hunger paradox."),
-        ("r = -0.532", "Nutritional Literacy vs. Anemia Prevalence", "Significant negative correlation. Higher awareness directly drives consumption of iron-rich greens and vitamin C absorption boosters."),
-        ("r = -0.544", "Nutritional Literacy vs. Protein Deficit %", "Moderates carbohydrate overconsumption by diversifying daily portions toward sattu, pulses, dairy, and eggs.")
-    ]
-
-    for idx, (stat, title, desc) in enumerate(corr_cards):
-        y = Inches(1.8 + idx * 1.6)
-        card = s8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), y, Inches(11.733), Inches(1.4))
-        card.fill.solid()
-        card.fill.fore_color.rgb = LIGHT_GRAY
-        card.line.color.rgb = BLUE
-        card.line.width = Pt(1.5)
-
-        tb_s = s8.shapes.add_textbox(Inches(1.0), y + Inches(0.15), Inches(2.2), Inches(1.1))
-        p = tb_s.text_frame.paragraphs[0]
-        p.text = stat
-        p.font.size = Pt(24)
-        p.font.bold = True
-        p.font.color.rgb = BLUE
-
-        tb_d = s8.shapes.add_textbox(Inches(3.3), y + Inches(0.15), Inches(9.0), Inches(1.1))
-        tf = tb_d.text_frame
-        tf.word_wrap = True
-        p = tf.paragraphs[0]
-        p.text = title
-        p.font.size = Pt(14)
-        p.font.bold = True
-        p.font.color.rgb = NAVY
-
-        p = tf.add_paragraph()
-        p.text = desc
-        p.font.size = Pt(11)
+    for sp in schema_points:
+        p = tf_sc.add_paragraph()
+        p.text = sp
+        p.font.size = Pt(10.5)
         p.font.color.rgb = TEXT_DARK
 
-    # -------------------------------------------------------------
-    # SLIDE 9: Personal Plate Calculator & Affordable Food Swaps
-    # -------------------------------------------------------------
+    # =========================================================================
+    # SLIDE 5: Visual Evidence: The Paradox Fulfillment Chart
+    # =========================================================================
+    s5 = prs.slides.add_slide(blank_layout)
+    add_header(s5, "The Paradox Visualized: Caloric Surplus vs. Nutrient Deficit", "DATA VISUALIZATION & FINDINGS")
+
+    # Left: Embed High-Res Chart
+    chart_path = "google_classroom_submission/visualisations/paradox_fulfillment_chart.png"
+    if os.path.exists(chart_path):
+        s5.shapes.add_picture(chart_path, Inches(0.8), Inches(1.6), Inches(6.8), Inches(5.4))
+
+    # Right: Analytical Breakdown
+    r_card = s5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.8), Inches(1.6), Inches(4.7), Inches(5.4))
+    r_card.fill.solid()
+    r_card.fill.fore_color.rgb = LIGHT_GRAY
+    r_card.line.color.rgb = CARD_BORDER
+
+    tb_r = s5.shapes.add_textbox(Inches(8.0), Inches(1.8), Inches(4.3), Inches(5.0))
+    tf_r = tb_r.text_frame
+    tf_r.word_wrap = True
+    p = tf_r.paragraphs[0]
+    p.text = "Key Analytical Findings:"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+
+    chart_insights = [
+        "1. Calories & Carbs Overshoot:",
+        "   - Energy fulfillment reaches 99.6% - 102.4%.",
+        "   - Carbohydrate energy share is 142% of the recommended upper limit.",
+        "2. The Protein Gap Crisis:",
+        "   - Actual intake is only 17.9g/day against 41.2g RDA.",
+        "   - 74.6% of the population fails basic protein adequacy.",
+        "3. Micronutrient Collapse:",
+        "   - Vitamin D: Only 24.3% fulfillment (75.6% deficiency).",
+        "   - Vitamin B12: Only 37.6% fulfillment (66.6% deficiency).",
+        "   - Iron: 43.4% fulfillment (56.6% clinical anemia).",
+        "• Takeaway: High energy intake does not prevent severe cellular malnutrition."
+    ]
+    for ci in chart_insights:
+        p = tf_r.add_paragraph()
+        p.text = ci
+        p.font.size = Pt(10.5)
+        p.font.color.rgb = TEXT_DARK
+
+    # =========================================================================
+    # SLIDE 6: India Geospatial Heatmap & Zonal Vulnerability
+    # =========================================================================
+    s6 = prs.slides.add_slide(blank_layout)
+    add_header(s6, "Geospatial State Heatmap & Zonal Deficit Hotspots", "GEOSPATIAL ANALYTICS")
+
+    # Left: Embed Map View
+    map_path = "assets/interactive_choropleth_map.png"
+    if os.path.exists(map_path):
+        s6.shapes.add_picture(map_path, Inches(0.8), Inches(1.6), Inches(6.8), Inches(5.4))
+
+    # Right: Zonal Hotspot Table
+    z_card = s6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.8), Inches(1.6), Inches(4.7), Inches(5.4))
+    z_card.fill.solid()
+    z_card.fill.fore_color.rgb = LIGHT_GRAY
+    z_card.line.color.rgb = CARD_BORDER
+
+    tb_z = s6.shapes.add_textbox(Inches(8.0), Inches(1.8), Inches(4.3), Inches(5.0))
+    tf_z = tb_z.text_frame
+    tf_z.word_wrap = True
+    p = tf_z.paragraphs[0]
+    p.text = "Regional Zonal Analysis:"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+
+    zones = [
+        ("• Central Zone (UP, MP, CG):", "Highest Hidden Hunger (77.7/100). Low dietary literacy (33.7) & heavy polished cereal intake."),
+        ("• Eastern Zone (Bihar, WB, OD):", "Severe Anemia Belt (65.7% anemia). White rice monoculture with low protein diversity."),
+        ("• Western Zone (GJ, MH, Goa):", "Critical B12 deficit in Gujarat (>78%) due to vegetarian diet without supplementation."),
+        ("• Northern Zone (PB, HR, RJ):", "Dairy buffers protein, but Vit D deficiency reaches 80.6% due to melanin shielding."),
+        ("• Southern Zone (KL, TN, KA):", "Lowest severity (68.3/100), buffered by Kerala's high nutritional literacy (56.7/100).")
+    ]
+    for zh, zd in zones:
+        p = tf_z.add_paragraph()
+        p.text = zh
+        p.font.size = Pt(11)
+        p.font.bold = True
+        p.font.color.rgb = BLUE
+        p = tf_z.add_paragraph()
+        p.text = zd
+        p.font.size = Pt(10)
+        p.font.color.rgb = TEXT_DARK
+
+    # =========================================================================
+    # SLIDE 7: Regional Multi-Nutrient Heatmap Matrix
+    # =========================================================================
+    s7 = prs.slides.add_slide(blank_layout)
+    add_header(s7, "Multi-Nutrient Deficiency Heatmap Matrix Across 6 Zones", "REGIONAL NUTRITION MATRIX")
+
+    # Left: Embed Regional Heatmap
+    hm_path = "google_classroom_submission/visualisations/regional_nutrient_heatmap.png"
+    if os.path.exists(hm_path):
+        s7.shapes.add_picture(hm_path, Inches(0.8), Inches(1.6), Inches(6.8), Inches(5.4))
+
+    # Right: Diagnostic Breakdown
+    hm_card = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.8), Inches(1.6), Inches(4.7), Inches(5.4))
+    hm_card.fill.solid()
+    hm_card.fill.fore_color.rgb = LIGHT_GRAY
+    hm_card.line.color.rgb = CARD_BORDER
+
+    tb_hm = s7.shapes.add_textbox(Inches(8.0), Inches(1.8), Inches(4.3), Inches(5.0))
+    tf_hm = tb_hm.text_frame
+    tf_hm.word_wrap = True
+    p = tf_hm.paragraphs[0]
+    p.text = "Matrix Diagnostics:"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+
+    hm_insights = [
+        "1. Protein Deficit is Universal:",
+        "   - Ranges between 52% and 61% across all six zones.",
+        "   - Even high-income urban strata fail to meet RDA.",
+        "2. Anemia is Geographically Clustered:",
+        "   - Peaks in East (65.7%) and Central (58.9%).",
+        "   - Linked to phytate-heavy cereal diets that inhibit iron.",
+        "3. Vitamin B12 Vegetarian Penalty:",
+        "   - 69.8% in West vs 54.2% in South.",
+        "   - Plant foods contain zero active cobalamin.",
+        "4. Vitamin D Pervasiveness:",
+        "   - Consistently above 74% in every single zone.",
+        "• Conclusion: Targeted regional nutrition interventions are imperative."
+    ]
+    for hi in hm_insights:
+        p = tf_hm.add_paragraph()
+        p.text = hi
+        p.font.size = Pt(10.5)
+        p.font.color.rgb = TEXT_DARK
+
+    # =========================================================================
+    # SLIDE 8: Statistical Regression: Literacy vs. Severity
+    # =========================================================================
+    s8 = prs.slides.add_slide(blank_layout)
+    add_header(s8, "Statistical Inference: Nutritional Literacy as the Prime Buffer", "STATISTICAL REGRESSION ANALYSIS")
+
+    # Left: Embed Scatter Regression
+    scat_path = "google_classroom_submission/visualisations/awareness_vs_hidden_hunger_scatter.png"
+    if os.path.exists(scat_path):
+        s8.shapes.add_picture(scat_path, Inches(0.8), Inches(1.6), Inches(6.8), Inches(5.4))
+
+    # Right: Statistical Proof
+    stat_card = s8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.8), Inches(1.6), Inches(4.7), Inches(5.4))
+    stat_card.fill.solid()
+    stat_card.fill.fore_color.rgb = LIGHT_GRAY
+    stat_card.line.color.rgb = CARD_BORDER
+
+    tb_st = s8.shapes.add_textbox(Inches(8.0), Inches(1.8), Inches(4.3), Inches(5.0))
+    tf_st = tb_st.text_frame
+    tf_st.word_wrap = True
+    p = tf_st.paragraphs[0]
+    p.text = "Statistical Proof & Metrics:"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+
+    stats = [
+        ("r = -0.916 (p < 0.001)", "Nutritional Literacy vs. Hidden Hunger Severity. Extremely strong inverse correlation proving knowledge directly protects against malnutrition."),
+        ("r = -0.532 (p < 0.001)", "Nutritional Literacy vs. Anemia Rate. Awareness drives intake of iron-rich greens and vitamin C absorption boosters."),
+        ("r = -0.544 (p < 0.001)", "Nutritional Literacy vs. Protein Deficit %. Higher awareness shifts meal balance toward sattu, pulses, dairy, and eggs."),
+        ("Key Conclusion:", "Dietary awareness is 4x more cost-effective than caloric grain distribution alone.")
+    ]
+    for st_title, st_desc in stats:
+        p = tf_st.add_paragraph()
+        p.text = f"• {st_title}"
+        p.font.size = Pt(11)
+        p.font.bold = True
+        p.font.color.rgb = BLUE
+        p = tf_st.add_paragraph()
+        p.text = st_desc
+        p.font.size = Pt(10)
+        p.font.color.rgb = TEXT_DARK
+
+    # =========================================================================
+    # SLIDE 9: Demographic Vulnerability Across Life Stages
+    # =========================================================================
     s9 = prs.slides.add_slide(blank_layout)
-    add_header(s9, "Actionable Indian Kitchen Swaps (Zero Added Cost)")
+    add_header(s9, "Demographic Vulnerability: Life Stages & Gender Disparities", "DEMOGRAPHIC COHORT ANALYSIS")
+
+    # Left: Embed Demographic Bars
+    dem_path = "google_classroom_submission/visualisations/demographic_vulnerability_bars.png"
+    if os.path.exists(dem_path):
+        s9.shapes.add_picture(dem_path, Inches(0.8), Inches(1.6), Inches(6.8), Inches(5.4))
+
+    # Right: Cohort Vulnerability
+    c_card = s9.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.8), Inches(1.6), Inches(4.7), Inches(5.4))
+    c_card.fill.solid()
+    c_card.fill.fore_color.rgb = LIGHT_GRAY
+    c_card.line.color.rgb = CARD_BORDER
+
+    tb_c = s9.shapes.add_textbox(Inches(8.0), Inches(1.8), Inches(4.3), Inches(5.0))
+    tf_c = tb_c.text_frame
+    tf_c.word_wrap = True
+    p = tf_c.paragraphs[0]
+    p.text = "Cohort Insights & Risks:"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
+
+    cohorts = [
+        ("Children (0-5 Years):", "67.1% anemic, 35.5% stunted. Irreversible neuro-cognitive and physical development risks."),
+        ("School-Age (6-17 Years):", "Critical protein gap impedes skeletal maturation and academic concentration."),
+        ("Adult Women (18-49 Years):", "Highest clinical anemia (57.0%) driven by menstrual loss, multiple gestations, and intra-household food bias."),
+        ("Elderly (60+ Years):", "Severe sarcopenia (muscle loss) and osteopenia due to chronic low protein and calcium intake.")
+    ]
+    for ch, cd in cohorts:
+        p = tf_c.add_paragraph()
+        p.text = f"• {ch}"
+        p.font.size = Pt(11)
+        p.font.bold = True
+        p.font.color.rgb = CRIMSON
+        p = tf_c.add_paragraph()
+        p.text = cd
+        p.font.size = Pt(10)
+        p.font.color.rgb = TEXT_DARK
+
+    # =========================================================================
+    # SLIDE 10: "Check Your Plate" Calculator & Affordable Swaps
+    # =========================================================================
+    s10 = prs.slides.add_slide(blank_layout)
+    add_header(s10, "Personal Body-Needs Calculator & Affordable Indian Food Swaps", "PRACTICAL INTERVENTIONS")
+
+    # Left: Embed Plate Calculator UI
+    calc_path = "assets/plate_calculator.png"
+    if os.path.exists(calc_path):
+        s10.shapes.add_picture(calc_path, Inches(0.8), Inches(1.6), Inches(6.8), Inches(5.4))
+
+    # Right: Indigenous Food Swaps
+    sw_card = s10.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.8), Inches(1.6), Inches(4.7), Inches(5.4))
+    sw_card.fill.solid()
+    sw_card.fill.fore_color.rgb = LIGHT_GRAY
+    sw_card.line.color.rgb = CARD_BORDER
+
+    tb_sw = s10.shapes.add_textbox(Inches(8.0), Inches(1.8), Inches(4.3), Inches(5.0))
+    tf_sw = tb_sw.text_frame
+    tf_sw.word_wrap = True
+    p = tf_sw.paragraphs[0]
+    p.text = "Zero-Cost Kitchen Swaps:"
+    p.font.size = Pt(16)
+    p.font.bold = True
+    p.font.color.rgb = NAVY
 
     swaps = [
-        ("Roasted Gram / Sattu Drink", "Swap 1 refined wheat roti for 1 glass of sattu drink (~Rs 10). Adds 12g bioavailable plant protein, 4g dietary fiber, and natural non-heme iron."),
-        ("Vitamin C Lemon Acidification", "Squeeze fresh lemon over dal and green sabzi. Ascorbic acid converts ferric iron into absorbable ferrous iron, tripling bioavailable iron uptake."),
-        ("Chai / Coffee Timing Delay", "Delay tea or coffee consumption by 45 minutes after meals. Prevents tannins and polyphenols from chelating and flushing out 60% of dietary iron."),
-        ("Finger Millet (Ragi) Integration", "Replace one portion of white rice with ragi roti or porridge. Delivers 344 mg calcium per 100g, eradicating skeletal mineral deficiency."),
-        ("Moringa (Drumstick Leaves)", "Add local moringa leaves to lentil curries and atta dough. Provides exceptionally dense bioavailable vitamin A, vitamin C, iron, and calcium.")
+        ("Roasted Gram / Sattu Drink:", "Swap 1 refined roti for 1 glass sattu drink (~Rs 10). Adds 12g protein and 4g fiber."),
+        ("Lemon Acidification on Dal:", "Squeeze fresh lemon over lentils. Vitamin C converts ferric to absorbable ferrous iron (3x uptake)."),
+        ("Delay Post-Meal Chai by 45 Min:", "Prevents tannins and polyphenols from chelating and flushing 60% of dietary iron."),
+        ("Sprouted Moong & Ragi Addition:", "Germination reduces phytates by 40% and triples bioavailable B-vitamins.")
     ]
-
-    for idx, (swap_name, swap_desc) in enumerate(swaps):
-        y = Inches(1.8 + idx * 1.0)
-        card = s9.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), y, Inches(11.733), Inches(0.85))
-        card.fill.solid()
-        card.fill.fore_color.rgb = RGBColor(236, 253, 245) # Soft Emerald
-        card.line.color.rgb = RGBColor(167, 243, 208)
-
-        tb = s9.shapes.add_textbox(Inches(1.0), y + Inches(0.08), Inches(11.3), Inches(0.7))
-        tf = tb.text_frame
-        tf.word_wrap = True
-        p = tf.paragraphs[0]
-        p.text = f"✔ {swap_name}: "
+    for sh, sd in swaps:
+        p = tf_sw.add_paragraph()
+        p.text = f"• {sh}"
+        p.font.size = Pt(11)
         p.font.bold = True
-        p.font.size = Pt(12)
-        p.font.color.rgb = RGBColor(6, 95, 70)
+        p.font.color.rgb = EMERALD
+        p = tf_sw.add_paragraph()
+        p.text = sd
+        p.font.size = Pt(10)
+        p.font.color.rgb = TEXT_DARK
 
-        run = p.add_run()
-        run.text = swap_desc
-        run.font.bold = False
-        run.font.size = Pt(11)
-        run.font.color.rgb = TEXT_DARK
+    # =========================================================================
+    # SLIDE 11: Power BI Desktop & Star Schema Data Modeling
+    # =========================================================================
+    s11 = prs.slides.add_slide(blank_layout)
+    add_header(s11, "Power BI Desktop Dashboard & DAX Measures Architecture", "POWER BI & BUSINESS INTELLIGENCE")
 
-    # -------------------------------------------------------------
-    # SLIDE 10: Technical Architecture & Live Deployment
-    # -------------------------------------------------------------
-    s10 = prs.slides.add_slide(blank_layout)
-    add_header(s10, "Software Artifacts, Power BI & GitHub Deployment")
-
-    tech_cards = [
-        ("Interactive Web Application", [
-            "Hosted live on GitHub Pages with zero backend dependency.",
-            "Leaflet.js 5-tier India Choropleth map with metric layer toggles.",
-            "Chart.js interactive visualizations and demographic decompositions.",
-            "Personalized 'Check Your Plate' calculator with real-time feedback."
+    pbi_cards = [
+        ("Power BI Document", BLUE, [
+            "File: Dashboard.pbix (479 KB)",
+            "Built on DIY Lab template base",
+            "Includes interactive KPI Scorecards",
+            "Multi-row Cards & Filter Slicers",
+            "Pie, Donut, Column & Treemap Visuals",
+            "Geospatial Bubble & Shape Maps"
         ]),
-        ("Power BI Desktop Model", [
-            "Clean Star Schema relational CSV exports with surrogate keys.",
-            "Dashboard.pbix template with 12 production DAX measures.",
-            "Dynamic Severity Alert Badges and Executive KPI cards.",
-            "Complete modeling manual documented in POWERBI_GUIDE.md."
+        ("Core DAX Measures", CRIMSON, [
+            "• Total Caloric Adequacy %",
+            "• National Protein Deficit Rate",
+            "• Hidden Hunger Severity Index",
+            "• Awareness-to-Deficiency Ratio",
+            "• Severe Anemia Belt Flag",
+            "• Dynamic Demographic Slicers"
         ]),
-        ("Python Pipeline Suite", [
-            "data_cleaning.py: 6-step automated data engineering pipeline.",
-            "Data_analysis.py: Statistical inference and EDA reporting engine.",
-            "Data_visualisation.py: Publication-quality matplotlib suite.",
-            "Full reproducible pipeline grounded on official ICMR-NIN 2024 data."
+        ("Web Dashboard Integration", EMERALD, [
+            "Standalone HTML5/CSS3/JS Web App",
+            "Interactive Leaflet India Choropleth",
+            "Chart.js Dynamic Demographic Engine",
+            "Full Offline & Online Dual Support",
+            "Live on GitHub Pages Cloud",
+            "Zero External Server Dependency"
         ])
     ]
 
-    for idx, (title, items) in enumerate(tech_cards):
+    for idx, (title, color, items) in enumerate(pbi_cards):
         x = Inches(0.8 + idx * 3.95)
-        card = s10.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(1.8), Inches(3.75), Inches(4.8))
-        card.fill.solid()
-        card.fill.fore_color.rgb = LIGHT_GRAY
-        card.line.color.rgb = RGBColor(203, 213, 225)
+        box = s11.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, x, Inches(1.6), Inches(3.75), Inches(5.4))
+        box.fill.solid()
+        box.fill.fore_color.rgb = LIGHT_GRAY
+        box.line.color.rgb = color
+        box.line.width = Pt(2)
 
-        tb = s10.shapes.add_textbox(x + Inches(0.15), Inches(2.0), Inches(3.45), Inches(4.4))
+        tb = s11.shapes.add_textbox(x + Inches(0.15), Inches(1.8), Inches(3.45), Inches(5.0))
         tf = tb.text_frame
         tf.word_wrap = True
         p = tf.paragraphs[0]
         p.text = title
-        p.font.size = Pt(14)
+        p.font.size = Pt(15)
         p.font.bold = True
-        p.font.color.rgb = BLUE
+        p.font.color.rgb = color
 
         for it in items:
             p = tf.add_paragraph()
@@ -523,47 +614,54 @@ def create_presentation():
             p.font.size = Pt(11)
             p.font.color.rgb = TEXT_DARK
 
-    # -------------------------------------------------------------
-    # SLIDE 11: Summary & Submission Links
-    # -------------------------------------------------------------
-    s11 = prs.slides.add_slide(blank_layout)
-    bg11 = s11.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
-    bg11.fill.solid()
-    bg11.fill.fore_color.rgb = NAVY
-    bg11.line.color.rgb = NAVY
+    # =========================================================================
+    # SLIDE 12: Summary, Academic Credentials & Submission Links
+    # =========================================================================
+    s12 = prs.slides.add_slide(blank_layout)
+    bg12 = s12.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
+    bg12.fill.solid()
+    bg12.fill.fore_color.rgb = NAVY
+    bg12.line.color.rgb = NAVY
 
-    tb11 = s11.shapes.add_textbox(Inches(1.0), Inches(1.2), Inches(11.333), Inches(5.0))
-    tf11 = tb11.text_frame
-    tf11.word_wrap = True
+    tb12 = s12.shapes.add_textbox(Inches(1.0), Inches(0.8), Inches(11.333), Inches(5.8))
+    tf12 = tb12.text_frame
+    tf12.word_wrap = True
 
-    p = tf11.paragraphs[0]
-    p.text = "CONCLUSION & PROJECT SUBMISSION LINKS"
-    p.font.size = Pt(28)
+    p = tf12.paragraphs[0]
+    p.text = "CONCLUSION & PROJECT SUBMISSION DELIVERABLES"
+    p.font.size = Pt(26)
     p.font.bold = True
     p.font.color.rgb = WHITE
 
-    links = [
-        ("Public GitHub Repository", "https://github.com/yeshwanthkushi25-glitch/india-nutrient-deficiency-analytics"),
-        ("Live Interactive Dashboard", "https://yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/"),
-        ("Dataset & Modeling Manual", "Available in data/ and POWERBI_GUIDE.md inside the repository"),
-        ("All-in-One Submission Package", "Final_Project_Submission_Google_Classroom.zip")
+    p_sub = tf12.add_paragraph()
+    p_sub.text = "SR UNIVERSITY • B.TECH CSE (CYBER SECURITY) • DATA ANALYTICS CAPSTONE"
+    p_sub.font.size = Pt(12)
+    p_sub.font.bold = True
+    p_sub.font.color.rgb = RGBColor(96, 165, 250)
+
+    items12 = [
+        ("Project Team:", "Yeshwanth (2503A53005)  |  V Laxmi Prasad (2503A53006)  |  MD Zaheer Pasha (2503A53016)"),
+        ("Public GitHub Repository:", "https://github.com/yeshwanthkushi25-glitch/india-nutrient-deficiency-analytics"),
+        ("Live Interactive Dashboard:", "https://yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/"),
+        ("All-in-One Submission Package:", "Data_Analytics_Final_Project_Submission.zip (contains Report, PPT, Proposal, Code, Power BI, Datasets)"),
+        ("Summary Finding:", "Caloric food security does not equal nutritional health. Nutritional literacy is the most decisive lever to conquer India's Hidden Hunger Paradox.")
     ]
 
-    for title, url in links:
-        p = tf11.add_paragraph()
-        p.text = f"\n{title}:"
-        p.font.size = Pt(15)
+    for h, v in items12:
+        p = tf12.add_paragraph()
+        p.text = f"\n{h}"
+        p.font.size = Pt(13)
         p.font.bold = True
         p.font.color.rgb = RGBColor(245, 158, 11)
 
-        p = tf11.add_paragraph()
-        p.text = url
-        p.font.size = Pt(13)
-        p.font.color.rgb = RGBColor(147, 197, 253)
+        p = tf12.add_paragraph()
+        p.text = v
+        p.font.size = Pt(11.5)
+        p.font.color.rgb = RGBColor(226, 232, 240)
 
     pptx_path = os.path.join("google_classroom_submission", "Project_PPT.pptx")
     prs.save(pptx_path)
-    print("Project PPT generated successfully at:", pptx_path)
+    print("Upgraded Project PPT generated successfully at:", pptx_path)
 
 if __name__ == "__main__":
     create_presentation()

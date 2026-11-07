@@ -211,6 +211,30 @@ def build_report():
         "with Hidden Hunger Severity, r = -0.532 with Anemia, and r = -0.544 with Protein Deficit."
     )
 
+    # Embed Figure 1: Paradox Fulfillment Chart
+    p_fig1 = "google_classroom_submission/visualisations/paradox_fulfillment_chart.png"
+    if os.path.exists(p_fig1):
+        doc.add_picture(p_fig1, width=Inches(6.2))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap1 = doc.add_paragraph()
+        cap1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r1 = cap1.add_run("Figure 1: National Dietary Intake vs. ICMR-NIN RDA Benchmark (% Fulfillment showing Caloric Overshoot vs. Micronutrient Deficit)\n")
+        r1.font.size = Pt(9)
+        r1.font.italic = True
+        r1.font.color.rgb = SLATE
+
+    # Embed Figure 2: Scatter Regression
+    p_fig2 = "google_classroom_submission/visualisations/awareness_vs_hidden_hunger_scatter.png"
+    if os.path.exists(p_fig2):
+        doc.add_picture(p_fig2, width=Inches(6.2))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap2 = doc.add_paragraph()
+        cap2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r2 = cap2.add_run("Figure 2: Statistical Regression Analysis: Nutritional Literacy Score vs. Hidden Hunger Severity Index (r = -0.916, p < 0.001)\n")
+        r2.font.size = Pt(9)
+        r2.font.italic = True
+        r2.font.color.rgb = SLATE
+
     # -------------------------------------------------------------
     # CHAPTER 6: GEOSPATIAL & REGIONAL ANALYSIS
     # -------------------------------------------------------------
@@ -225,6 +249,42 @@ def build_report():
         "yet white rice reliance still maintains high protein deficits (55.1%). Kerala achieves the lowest hidden hunger score (56.7/100)."
     )
 
+    # Embed Figure 3: India Geospatial Heatmap
+    p_fig3 = "assets/interactive_choropleth_map.png"
+    if os.path.exists(p_fig3):
+        doc.add_picture(p_fig3, width=Inches(6.2))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap3 = doc.add_paragraph()
+        cap3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r3 = cap3.add_run("Figure 3: Interactive Geospatial Choropleth Heatmap of Nutritional Deficits Across 36 Indian States & UTs\n")
+        r3.font.size = Pt(9)
+        r3.font.italic = True
+        r3.font.color.rgb = SLATE
+
+    # Embed Figure 4: Regional Heatmap Matrix
+    p_fig4 = "google_classroom_submission/visualisations/regional_nutrient_heatmap.png"
+    if os.path.exists(p_fig4):
+        doc.add_picture(p_fig4, width=Inches(6.2))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap4 = doc.add_paragraph()
+        cap4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r4 = cap4.add_run("Figure 4: Regional Multi-Nutrient Deficiency Heatmap Matrix Across 6 Indian Zones\n")
+        r4.font.size = Pt(9)
+        r4.font.italic = True
+        r4.font.color.rgb = SLATE
+
+    # Embed Figure 5: Demographic Vulnerability Bars
+    p_fig5 = "google_classroom_submission/visualisations/demographic_vulnerability_bars.png"
+    if os.path.exists(p_fig5):
+        doc.add_picture(p_fig5, width=Inches(6.2))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap5 = doc.add_paragraph()
+        cap5.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r5 = cap5.add_run("Figure 5: Demographic Nutrient Vulnerability Disparities Across Age Groups and Gender\n")
+        r5.font.size = Pt(9)
+        r5.font.italic = True
+        r5.font.color.rgb = SLATE
+
     # -------------------------------------------------------------
     # CHAPTER 7: ACTIONABLE AFFORDABLE INDIAN FOOD SWAPS
     # -------------------------------------------------------------
@@ -238,6 +298,18 @@ def build_report():
         "4. Finger Millet (Ragi) & Sesame (Til): Replacing a portion of rice with ragi provides 344 mg of calcium per 100g, addressing widespread osteopenia.\n"
         "5. Moringa (Drumstick Leaves): Abundant in micro-minerals and vitamin A, easily cultivated in home gardens across rural and suburban India."
     )
+
+    # Embed Figure 6: Plate Calculator UI
+    p_fig6 = "assets/plate_calculator.png"
+    if os.path.exists(p_fig6):
+        doc.add_picture(p_fig6, width=Inches(6.2))
+        doc.paragraphs[-1].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap6 = doc.add_paragraph()
+        cap6.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r6 = cap6.add_run("Figure 6: Interactive 'Check Your Plate' Body-Needs Calculator and Indigenous Indian Kitchen Food Swaps Engine\n")
+        r6.font.size = Pt(9)
+        r6.font.italic = True
+        r6.font.color.rgb = SLATE
 
     # -------------------------------------------------------------
     # CHAPTER 8: SOFTWARE ARTIFACTS & DEPLOYMENT

@@ -271,15 +271,46 @@ html_content = """<!DOCTYPE html>
   <strong>Key Finding 1: The Negative Correlation of Awareness</strong><br>
   Nutritional Literacy Score correlates negatively with Hidden Hunger Severity at <strong>r = -0.916</strong> (p &lt; 0.001), with Anemia at <strong>r = -0.532</strong>, and with Protein Deficit at <strong>r = -0.544</strong>. Improving dietary literacy directly curbs empty-carb dependence.
 </div>
+
+<div class="img-container">
+  <img src="visualisations/paradox_fulfillment_chart.png" alt="Paradox Fulfillment Chart">
+  <div class="caption">Figure 1: National Dietary Intake vs. ICMR-NIN RDA Benchmark (% Fulfillment showing Caloric Overshoot vs. Micronutrient Deficit)</div>
+</div>
+
+<div class="img-container">
+  <img src="visualisations/awareness_vs_hidden_hunger_scatter.png" alt="Nutritional Literacy Regression">
+  <div class="caption">Figure 2: Statistical Regression Analysis: Nutritional Literacy Score vs. Hidden Hunger Severity Index (r = -0.916, p &lt; 0.001)</div>
+</div>
+
 <div class="stat-badge">
   <strong>Key Finding 2: Zonal Disparities</strong><br>
   The Central (77.7/100) and Eastern (77.8/100) zones exhibit the highest Hidden Hunger Severity, driven by polished rice monoculture and lower literacy scores (33.7–38.4). The Southern Zone achieves higher literacy (52.0) and lower severity (68.3), led by Kerala (56.7).
+</div>
+
+<div class="img-container">
+  <img src="../assets/interactive_choropleth_map.png" alt="India Choropleth Map">
+  <div class="caption">Figure 3: Interactive Geospatial Choropleth Heatmap of Nutritional Deficits Across 36 Indian States & UTs</div>
+</div>
+
+<div class="img-container">
+  <img src="visualisations/regional_nutrient_heatmap.png" alt="Regional Nutrient Heatmap">
+  <div class="caption">Figure 4: Regional Multi-Nutrient Deficiency Heatmap Matrix Across 6 Indian Zones</div>
+</div>
+
+<div class="img-container">
+  <img src="visualisations/demographic_vulnerability_bars.png" alt="Demographic Vulnerability">
+  <div class="caption">Figure 5: Demographic Nutrient Vulnerability Disparities Across Age Groups and Gender</div>
 </div>
 
 <h1>5. High-Impact, Affordable Indian Food Swaps</h1>
 <p>
   The project developed a personalized plate simulation showing that overcoming micronutrient gaps does not demand costly commercial supplements. By utilizing indigenous Indian kitchen staples, families can achieve balance for pennies:
 </p>
+
+<div class="img-container">
+  <img src="../assets/plate_calculator.png" alt="Plate Calculator">
+  <div class="caption">Figure 6: Interactive 'Check Your Plate' Body-Needs Calculator and Indigenous Indian Kitchen Food Swaps Engine</div>
+</div>
 <ul>
   <li><strong>Sattu Drink (Roasted Bengal Gram):</strong> Swapping 1 refined roti for 1 glass of sattu adds 12g bioavailable plant protein and iron for approximately &#8377;10.</li>
   <li><strong>Lemon / Ascorbic Acid Acidification:</strong> Squeezing fresh lemon over dal and green sabzi triples plant (non-heme) iron absorption by converting ferric to ferrous iron.</li>
