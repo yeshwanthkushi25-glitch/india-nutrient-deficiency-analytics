@@ -54,20 +54,20 @@ def create_presentation():
     tf1.word_wrap = True
 
     p = tf1.paragraphs[0]
-    p.text = "ACADEMIC FINAL PROJECT PRESENTATION"
-    p.font.size = Pt(13)
+    p.text = "SR UNIVERSITY • DEPARTMENT OF CSE (CYBER SECURITY) • DATA ANALYTICS"
+    p.font.size = Pt(12)
     p.font.bold = True
     p.font.color.rgb = BLUE
 
     p = tf1.add_paragraph()
     p.text = "Nutrient Deficiency & The Hidden Hunger Paradox in India"
-    p.font.size = Pt(32)
+    p.font.size = Pt(30)
     p.font.bold = True
     p.font.color.rgb = WHITE
 
     p = tf1.add_paragraph()
     p.text = "Why High Caloric Intake Still Leads to Severe Micronutrient and Macronutrient Deficiencies Due to Lack of Nutritional Awareness"
-    p.font.size = Pt(16)
+    p.font.size = Pt(15)
     p.font.color.rgb = RGBColor(203, 213, 225)
 
     # Team Members Card
@@ -79,15 +79,15 @@ def create_presentation():
     tb_t = s1.shapes.add_textbox(Inches(1.2), Inches(4.6), Inches(10.9), Inches(2.0))
     tf_t = tb_t.text_frame
     p = tf_t.paragraphs[0]
-    p.text = "PROJECT TEAM MEMBERS & CREDENTIALS:"
+    p.text = "PROJECT TEAM (SR UNIVERSITY - B.TECH CSE CYBER SECURITY):"
     p.font.size = Pt(11)
     p.font.bold = True
     p.font.color.rgb = RGBColor(245, 158, 11)
 
     members_text = [
-        "• Yeshwanth (Roll No: [Your Roll Number 1]) - Data Architecture, ETL Pipeline & Geospatial Modeling",
-        "• [Team Member 2 Name] (Roll No: [Roll Number 2]) - Statistical Inference, EDA & Visualizations",
-        "• [Team Member 3 Name] (Roll No: [Roll Number 3]) - Power BI Star Schema, DAX & Frontend Dashboard"
+        "• Yeshwanth (Roll No: 2503A53005) - Data Architecture, ETL Pipeline & Geospatial Modeling",
+        "• V Laxmi Prasad (Roll No: 2503A53006) - Statistical Inference, EDA & Python Visualizations",
+        "• MD Zaheer Pasha (Roll No: 2503A53016) - Power BI Star Schema, DAX & Frontend Dashboard"
     ]
     for m in members_text:
         p = tf_t.add_paragraph()

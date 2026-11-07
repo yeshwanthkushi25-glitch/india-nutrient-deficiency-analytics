@@ -25,10 +25,17 @@ def build_report():
     # -------------------------------------------------------------
     p_inst = doc.add_paragraph()
     p_inst.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r_inst = p_inst.add_run("ACADEMIC DATA ANALYTICS CAPSTONE PROJECT REPORT\n")
+    r_inst = p_inst.add_run("SR UNIVERSITY\nDEPARTMENT OF COMPUTER SCIENCE & ENGINEERING (CYBER SECURITY)\n")
     r_inst.font.size = Pt(13)
     r_inst.font.bold = True
     r_inst.font.color.rgb = SLATE
+
+    p_sub = doc.add_paragraph()
+    p_sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r_sub_hdr = p_sub.add_run("COURSE: DATA ANALYTICS | CAPSTONE PROJECT REPORT\n")
+    r_sub_hdr.font.size = Pt(11)
+    r_sub_hdr.font.bold = True
+    r_sub_hdr.font.color.rgb = ACCENT
 
     p_title = doc.add_paragraph()
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -38,7 +45,7 @@ def build_report():
     r_title.font.color.rgb = PRIMARY
 
     r_sub = p_title.add_run("Why High Caloric Intake Still Leads to Severe Macronutrient and Micronutrient Deficiencies Due to Lack of Nutritional Awareness\n\n")
-    r_sub.font.size = Pt(14)
+    r_sub.font.size = Pt(13)
     r_sub.font.bold = True
     r_sub.font.color.rgb = ACCENT
 
@@ -59,9 +66,9 @@ def build_report():
         cell.paragraphs[0].runs[0].font.size = Pt(10)
 
     members = [
-        ("Yeshwanth", "[Your Roll Number 1]", "Data Architecture, ETL Pipeline & Geospatial Modeling"),
-        ("[Team Member 2 Name]", "[Roll Number 2]", "Statistical Inference, EDA & Python Visualizations"),
-        ("[Team Member 3 Name]", "[Roll Number 3]", "Power BI Dashboard Modeling, DAX & Frontend UI")
+        ("Yeshwanth", "2503A53005", "Data Architecture, ETL Pipeline & Geospatial Modeling"),
+        ("V Laxmi Prasad", "2503A53006", "Statistical Inference, EDA & Python Visualizations"),
+        ("MD Zaheer Pasha", "2503A53016", "Power BI Dashboard Modeling, DAX & Frontend UI")
     ]
     for i, m in enumerate(members, start=1):
         for j, val in enumerate(m):
@@ -72,7 +79,7 @@ def build_report():
     doc.add_paragraph()
     p_meta = doc.add_paragraph()
     p_meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r_meta = p_meta.add_run("Department of Computer Science / Data Analytics\nAcademic Year: 2026-2027\nPublic Repository: https://github.com/yeshwanthkushi25-glitch/india-nutrient-deficiency-analytics\nLive Dashboard: https://yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/")
+    r_meta = p_meta.add_run("Institution: SR University | Program: B.Tech CSE (Cyber Security)\nSubject: Data Analytics | Academic Year: 2026-2027\nPublic Repository: https://github.com/yeshwanthkushi25-glitch/india-nutrient-deficiency-analytics\nLive Dashboard: https://yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/")
     r_meta.font.size = Pt(9.5)
     r_meta.font.color.rgb = SLATE
 

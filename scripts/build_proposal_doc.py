@@ -21,6 +21,11 @@ DARK_GRAY = RGBColor(51, 65, 85)
 # Title
 title_p = doc.add_paragraph()
 title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run_inst = title_p.add_run("SR UNIVERSITY\nDEPARTMENT OF COMPUTER SCIENCE & ENGINEERING (CYBER SECURITY)\nCOURSE: DATA ANALYTICS\n\n")
+run_inst.font.size = Pt(11)
+run_inst.font.bold = True
+run_inst.font.color.rgb = SECONDARY
+
 run = title_p.add_run("PROJECT PROPOSAL\n")
 run.font.size = Pt(20)
 run.font.bold = True
@@ -42,9 +47,9 @@ for j, h in enumerate(headers):
     cell.paragraphs[0].runs[0].font.size = Pt(10)
 
 members = [
-    ("Yeshwanth", "[Your Roll Number]", "Data Architecture, ETL & Modeling"),
-    ("[Team Member 2 Name]", "[Roll Number 2]", "Statistical Analysis & Visualizations"),
-    ("[Team Member 3 Name]", "[Roll Number 3]", "Web Dashboard & Power BI Integration")
+    ("Yeshwanth", "2503A53005", "Data Architecture, ETL & Modeling"),
+    ("V Laxmi Prasad", "2503A53006", "Statistical Analysis & Visualizations"),
+    ("MD Zaheer Pasha", "2503A53016", "Web Dashboard & Power BI Integration")
 ]
 for i, m in enumerate(members, start=1):
     for j, val in enumerate(m):

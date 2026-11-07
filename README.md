@@ -208,17 +208,21 @@ A complete sortable and searchable data table covering all 36 Indian States & UT
 ├── app.js                                        # Application state, map & chart engine
 └── README.md                                     # Project documentation
 ```
-│       ├── Dim_Age_Awareness_Cohort.csv
-│       └── Executive_KPI_Summary.csv
-├── scripts/
-│   ├── build_nutrition_dataset.py                # Raw generator & dirty log creator
-│   └── clean_and_prepare_powerbi.py              # ETL cleaning & Star Schema modeling
-├── POWERBI_GUIDE.md                              # Complete DAX catalog & setup manual
-├── index.html                                    # Web analytics frontend
-├── styles.css                                    # Responsive styling & themes
-├── app.js                                        # Application state, map & chart engine
-└── README.md                                     # Project documentation
-```
+
+---
+
+## 👥 Project Team & Academic Credentials
+
+* **University:** SR University
+* **Department & Branch:** Department of Computer Science & Engineering (Cyber Security)
+* **Subject:** Data Analytics
+* **Academic Year:** 2026–2027
+
+| # | Student Name | Roll Number | Primary Responsibilities |
+| :-: | :--- | :--- | :--- |
+| **1** | **Yeshwanth** | `2503A53005` | Data Architecture, ETL Pipeline & Geospatial Modeling |
+| **2** | **V Laxmi Prasad** | `2503A53006` | Statistical Inference, Exploratory Data Analysis & Python Visualizations |
+| **3** | **MD Zaheer Pasha** | `2503A53016` | Power BI Star Schema, DAX Modeling & Frontend UI |
 
 ---
 

@@ -23,6 +23,9 @@ data/raw_data_log.csv
 Thumbs.db
 desktop.ini
 
+# Packages and archives
+*.zip
+
 # IDE & Editor artifacts
 .vscode/
 .idea/
