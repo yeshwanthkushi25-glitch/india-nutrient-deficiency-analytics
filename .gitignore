@@ -9,6 +9,12 @@ venv/
 ENV/
 .env
 
+# Node artifacts
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # Raw intermediate CSV cache (master data is in .xlsx and powerbi_exports)
 data/raw_data_log.csv
 

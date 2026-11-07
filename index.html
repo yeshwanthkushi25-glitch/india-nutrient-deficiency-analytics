@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>India Nutrient Deficiency & Hidden Hunger Paradox Analytics</title>
   
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>">
+
   <!-- Google Fonts & Font Awesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -234,14 +237,12 @@
         <div class="map-container-box">
           <div id="india-map"></div>
           <div class="map-legend" id="map-legend">
-            <div class="legend-title" id="legend-metric-label">Protein Deficit (%)</div>
-            <div class="legend-scale">
-              <span class="grad-bar" id="legend-gradient"></span>
+            <div class="legend-header">
+              <span class="legend-title" id="legend-metric-label">Protein Deficit (%)</span>
+              <span class="legend-sub" id="legend-metric-sub">ICMR-NIN 2024 Benchmark</span>
             </div>
-            <div class="legend-labels">
-              <span id="legend-min">40%</span>
-              <span id="legend-mid">65%</span>
-              <span id="legend-max">85%+</span>
+            <div class="legend-swatches" id="legend-swatches">
+              <!-- Dynamically populated via app.js -->
             </div>
           </div>
         </div>

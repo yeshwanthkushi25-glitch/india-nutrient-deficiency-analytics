@@ -138,21 +138,53 @@ SWITCH(
 
 ---
 
-## 🌐 Interactive Web Application Features
+## 🌐 Interactive Web Application & Visual Previews
 
-The repository includes a modern, zero-dependency, responsive single-page web application (`index.html`, `styles.css`, `app.js`):
-1. **Executive KPI Dashboard:** Real-time summary cards displaying national protein gaps, calorie sufficiency, anemia prevalence, and awareness metrics.
-2. **Interactive India Choropleth (Leaflet.js):** Color-swappable geospatial heatmap covering all 28 States & 8 UTs (toggle between Protein Deficit, Anemia, Vit B12, Vit D, Calcium, Hidden Hunger, and Literacy Score).
-3. **State Nutritional Scorecard Panel:** Dynamic side panel updated by map clicks, showing urban vs. rural splits, calorie vs. protein gaps, and localized dietary advice.
-4. **"Check Your Plate" Body-Needs Calculator:** Users input their age, gender, physical activity, and daily Indian food servings (rotis, rice bowls, dal, dairy, paneer, eggs, greens, tea after meals) to receive real-time calorie vs. nutrient fulfillment percentages and affordable kitchen swaps (sattu, lemon on dal, delayed tea, roasted chana).
-5. **Multi-Nutrient Heatmap Matrix Table:** Sortable and searchable data table covering all 36 Indian territories.
-6. **Download Center:** Direct download buttons for the multi-tab `.xlsx` workbook, CSV tables, and Power BI guide.
+The repository includes a modern, zero-dependency, responsive single-page analytics web application (`index.html`, `styles.css`, `app.js`).
+
+### 1. Interactive India Geospatial Heatmap & Dynamic State Scorecard
+The map renders all 36 Indian States and UTs with custom 5-tier choropleth shading grounded on ICMR-NIN 2024 and NFHS-5 benchmarks. Users can toggle between **Protein Deficit %**, **Anemia (Iron) %**, **Vitamin B12 %**, **Vitamin D %**, **Calcium %**, **Hidden Hunger Index**, and **Nutritional Literacy Score**. Clicking any state synchronizes the detail side-panel with urban vs. rural splits, macro/micro balances, and regional dietary advice.
+
+![Interactive India Geospatial Heatmap](assets/interactive_choropleth_map.png)
+
+---
+
+### 2. Executive Nutritional Scorecard (The Paradox KPI Deck)
+Executive summary cards illustrating the clinical paradox: high daily caloric intake (99.6%–102.4% sufficiency) masking an acute protein gap (56.5%–74.6% deficit), high anemia prevalence (56.6%), and high micronutrient starvation.
+
+![Executive KPI Deck](assets/executive_kpi_deck.png)
+
+---
+
+### 3. Paradox & Demographic Analytics Charts
+- **Chart 1 — The "Eating Enough vs Getting Nutrients" Paradox:** Compares actual daily intake against 100% ICMR-NIN RDA targets for Calories, Carbohydrates, Protein, Iron, Vitamin B12, Vitamin D, and Calcium.
+- **Chart 3 — Age & Gender Vulnerability:** Highlights severe anemia and micronutrient vulnerabilities across toddlers, adolescent girls, reproductive-age women, and seniors.
+
+![Paradox & Demographic Analytics Charts](assets/paradox_charts.png)
+
+---
+
+### 4. Personal Body-Needs & Awareness Calculator ("Check Your Plate")
+An interactive simulation tool where users enter their age, gender, activity level, and daily Indian food servings (rotis, rice bowls, dal, dairy, paneer, eggs/meat, leafy greens, tea after meals). The calculator computes personal RDA fulfillment percentages, issues a "Hidden Hunger Paradox" clinical diagnosis, and provides actionable, budget-friendly Indian kitchen food swaps (sattu drinks, lemon for iron bioavailability, delayed tea, roasted chana).
+
+![Personal Plate Calculator](assets/plate_calculator.png)
+
+---
+
+### 5. Multi-Nutrient Heatmap Matrix Table
+A complete sortable and searchable data table covering all 36 Indian States & UTs with color-coded severity chips for immediate cross-regional policy comparisons.
 
 ---
 
 ## 📁 Repository File Structure
 
 ```
+├── assets/                                       # High-resolution UI screenshots & previews
+│   ├── interactive_choropleth_map.png            # Clean India choropleth map & scorecard
+│   ├── executive_kpi_deck.png                    # Executive KPI overview cards
+│   ├── paradox_charts.png                        # Intake vs RDA paradox & age vulnerability
+│   ├── plate_calculator.png                      # "Check Your Plate" calculator & food swaps
+│   └── full_dashboard.png                        # Complete retina dashboard capture
 ├── data/
 │   ├── india_nutrient_deficiency_analytics.xlsx  # Master 6-tab formatted workbook (1.99 MB)
 │   ├── india_nutrition_data.json                 # Pre-aggregated web API dataset
@@ -163,6 +195,19 @@ The repository includes a modern, zero-dependency, responsive single-page web ap
 │       ├── Fact_State_Nutrition.csv
 │       ├── Dim_Geography.csv
 │       ├── Dim_Nutrient_RDA.csv
+│       ├── Dim_Age_Awareness_Cohort.csv
+│       └── Executive_KPI_Summary.csv
+├── scripts/
+│   ├── build_nutrition_dataset.py                # Raw generator & dirty log creator
+│   ├── clean_and_prepare_powerbi.py              # ETL cleaning & Star Schema modeling
+│   ├── inspect_and_screenshot.js                 # Automated headless Chrome QA & screenshots
+│   └── test_interactions.js                     # Interaction testing suite
+├── POWERBI_GUIDE.md                              # Complete DAX catalog & setup manual
+├── index.html                                    # Web analytics frontend
+├── styles.css                                    # Responsive styling & themes
+├── app.js                                        # Application state, map & chart engine
+└── README.md                                     # Project documentation
+```
 │       ├── Dim_Age_Awareness_Cohort.csv
 │       └── Executive_KPI_Summary.csv
 ├── scripts/

@@ -21,64 +21,100 @@ const AppState = {
   sortAsc: true,
   searchTerm: ''
 };
+window.AppState = AppState;
 
-// Metric metadata configuration
+// Metric metadata & multi-tier color scales (Grounded on ICMR-NIN 2024 & NFHS-5 distributions)
 const METRIC_CONFIG = {
   protein_deficit_pct: {
     label: 'Protein Deficit (%)',
-    min: 45, mid: 65, max: 85,
     unit: '%',
-    palette: ['#10b981', '#f59e0b', '#ef4444', '#881337'],
-    higherIsBad: true,
-    desc: 'Percentage of population failing to meet ICMR-NIN 2024 protein RDA (0.83 g/kg).'
+    benchmark: 'ICMR-NIN 2024: 0.83 g/kg/day RDA',
+    desc: 'Percentage of population failing to meet daily physiological protein requirement.',
+    intervals: [
+      { max: 53.0, color: '#10b981', label: '< 53%', tag: 'Lowest Deficit' },
+      { max: 56.0, color: '#84cc16', label: '53% – 56%', tag: 'Moderate-Low' },
+      { max: 57.5, color: '#f59e0b', label: '56% – 57.5%', tag: 'Moderate Gap' },
+      { max: 59.0, color: '#f97316', label: '57.5% – 59%', tag: 'High Deficit' },
+      { max: 999.0, color: '#dc2626', label: '≥ 59%', tag: 'Critical Gap' }
+    ]
   },
   anemia_pct: {
     label: 'Anemia Prevalence (%)',
-    min: 25, mid: 50, max: 75,
     unit: '%',
-    palette: ['#10b981', '#f59e0b', '#ef4444', '#881337'],
-    higherIsBad: true,
-    desc: 'Prevalence of iron-deficiency anemia from NFHS-5 survey.'
+    benchmark: 'NFHS-5 National Benchmark: 57.0%',
+    desc: 'Iron-deficiency anemia across women and children.',
+    intervals: [
+      { max: 42.0, color: '#10b981', label: '< 42%', tag: 'Mild' },
+      { max: 50.0, color: '#84cc16', label: '42% – 50%', tag: 'Moderate' },
+      { max: 58.0, color: '#f59e0b', label: '50% – 58%', tag: 'Elevated' },
+      { max: 65.0, color: '#f97316', label: '58% – 65%', tag: 'Severe' },
+      { max: 999.0, color: '#dc2626', label: '≥ 65%', tag: 'Critical Crisis' }
+    ]
   },
   b12_pct: {
     label: 'Vitamin B12 Deficiency (%)',
-    min: 35, mid: 55, max: 80,
     unit: '%',
-    palette: ['#10b981', '#f59e0b', '#ef4444', '#881337'],
-    higherIsBad: true,
-    desc: 'Deficiency of cobalamin impacting nerve myelination and RBC formation.'
+    benchmark: 'CNNS National Survey: 62.4%',
+    desc: 'Cobalamin deficiency impacting neurological and hematological function.',
+    intervals: [
+      { max: 56.0, color: '#10b981', label: '< 56%', tag: 'Low' },
+      { max: 64.0, color: '#84cc16', label: '56% – 64%', tag: 'Moderate' },
+      { max: 70.0, color: '#f59e0b', label: '64% – 70%', tag: 'Elevated' },
+      { max: 76.0, color: '#f97316', label: '70% – 76%', tag: 'High Risk' },
+      { max: 999.0, color: '#dc2626', label: '≥ 76%', tag: 'Critical (Veg Belts)' }
+    ]
   },
   vitd_pct: {
     label: 'Vitamin D Deficiency (%)',
-    min: 60, mid: 75, max: 90,
     unit: '%',
-    palette: ['#10b981', '#f59e0b', '#ef4444', '#881337'],
-    higherIsBad: true,
-    desc: 'Serum 25(OH)D < 20 ng/mL across urban and indoor populations.'
+    benchmark: 'ICMR-NIN Benchmark: 600 IU RDA',
+    desc: 'Serum 25(OH)D deficiency across urban and indoor populations.',
+    intervals: [
+      { max: 70.0, color: '#10b981', label: '< 70%', tag: 'Mild Deficit' },
+      { max: 74.0, color: '#84cc16', label: '70% – 74%', tag: 'Moderate' },
+      { max: 78.0, color: '#f59e0b', label: '74% – 78%', tag: 'Elevated' },
+      { max: 82.0, color: '#f97316', label: '78% – 82%', tag: 'Severe' },
+      { max: 999.0, color: '#dc2626', label: '≥ 82%', tag: 'Critical' }
+    ]
   },
   calcium_pct: {
     label: 'Calcium Inadequacy (%)',
-    min: 40, mid: 65, max: 85,
     unit: '%',
-    palette: ['#10b981', '#f59e0b', '#ef4444', '#881337'],
-    higherIsBad: true,
-    desc: 'Dietary calcium intake below 1000 mg/day RDA.'
+    benchmark: 'ICMR-NIN RDA: 1000 mg/day',
+    desc: 'Dietary calcium intake below recommended physiological allowance.',
+    intervals: [
+      { max: 73.7, color: '#10b981', label: '< 73.7%', tag: 'Better Intake' },
+      { max: 73.9, color: '#84cc16', label: '73.7% – 73.9%', tag: 'Moderate' },
+      { max: 74.0, color: '#f59e0b', label: '73.9% – 74.0%', tag: 'National Average' },
+      { max: 74.2, color: '#f97316', label: '74.0% – 74.2%', tag: 'High Inadequacy' },
+      { max: 999.0, color: '#dc2626', label: '≥ 74.2%', tag: 'Severe Inadequacy' }
+    ]
   },
   hidden_hunger_index: {
-    label: 'Hidden Hunger Severity (0-100)',
-    min: 35, mid: 60, max: 85,
+    label: 'Hidden Hunger Severity (0–100)',
     unit: '',
-    palette: ['#10b981', '#f59e0b', '#ef4444', '#881337'],
-    higherIsBad: true,
-    desc: 'Composite score: High caloric intake paired with micronutrient starvation.'
+    benchmark: 'Composite Calorie-Nutrient Index',
+    desc: 'Full stomach (calorie adequacy) with micronutrient and protein deprivation.',
+    intervals: [
+      { max: 64.0, color: '#10b981', label: '< 64', tag: 'Moderate-Low' },
+      { max: 69.0, color: '#84cc16', label: '64 – 69', tag: 'Moderate' },
+      { max: 73.0, color: '#f59e0b', label: '69 – 73', tag: 'Elevated' },
+      { max: 77.0, color: '#f97316', label: '73 – 77', tag: 'High Risk' },
+      { max: 999.0, color: '#dc2626', label: '≥ 77', tag: 'Critical Severity' }
+    ]
   },
   awareness_score: {
-    label: 'Nutritional Literacy Score (0-100)',
-    min: 25, mid: 50, max: 75,
+    label: 'Nutritional Literacy Score (0–100)',
     unit: '',
-    palette: ['#881337', '#ef4444', '#f59e0b', '#10b981'], // Inverted for positive literacy
-    higherIsBad: false,
-    desc: 'Nutritional awareness, reading food labels, and understanding balanced plates.'
+    benchmark: 'Dietary Awareness & Nutrition Literacy',
+    desc: 'Nutritional literacy, understanding meal portion density, and reading food labels.',
+    intervals: [
+      { max: 36.0, color: '#dc2626', label: '< 36', tag: 'Severe Illiteracy' },
+      { max: 44.0, color: '#f97316', label: '36 – 44', tag: 'Low Awareness' },
+      { max: 52.0, color: '#f59e0b', label: '44 – 52', tag: 'Average Awareness' },
+      { max: 60.0, color: '#84cc16', label: '52 – 60', tag: 'Good Awareness' },
+      { max: 999.0, color: '#10b981', label: '≥ 60', tag: 'High Literacy' }
+    ]
   }
 };
 
@@ -180,22 +216,30 @@ function updateExecutiveKPIs() {
 // -------------------------------------------------------------
 // 3. Leaflet India Map & Choropleth Layer
 // -------------------------------------------------------------
-function getColorForValue(val, config) {
+function getColorForValue(val, metricKey) {
   if (val === undefined || val === null || isNaN(val)) return '#cbd5e1';
-  const { min, mid, max, palette, higherIsBad } = config;
-  
-  if (higherIsBad) {
-    if (val < min) return palette[0];
-    if (val < mid) return palette[1];
-    if (val < max) return palette[2];
-    return palette[3];
-  } else {
-    // For literacy: lower is worse
-    if (val < min) return palette[0];
-    if (val < mid) return palette[1];
-    if (val < max) return palette[2];
-    return palette[3];
+  const cfg = METRIC_CONFIG[metricKey];
+  if (!cfg || !cfg.intervals) return '#cbd5e1';
+
+  for (const item of cfg.intervals) {
+    if (val < item.max) {
+      return item.color;
+    }
   }
+  return cfg.intervals[cfg.intervals.length - 1].color;
+}
+
+function getTierTagForValue(val, metricKey) {
+  if (val === undefined || val === null || isNaN(val)) return 'N/A';
+  const cfg = METRIC_CONFIG[metricKey];
+  if (!cfg || !cfg.intervals) return '';
+
+  for (const item of cfg.intervals) {
+    if (val < item.max) {
+      return item.tag;
+    }
+  }
+  return cfg.intervals[cfg.intervals.length - 1].tag;
 }
 
 function canonicalizeGeoName(name) {
@@ -213,45 +257,63 @@ function initMap() {
   AppState.map = L.map('india-map', {
     center: [22.8, 80.0],
     zoom: 4.4,
-    minZoom: 4,
+    minZoom: 3.8,
     maxZoom: 7,
-    zoomSnap: 0.2,
+    zoomSnap: 0.1,
+    zoomDelta: 0.5,
     zoomControl: true,
     attributionControl: false
   });
 
-  // Clean tile layer
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    subdomains: 'abcd',
-    maxZoom: 19
-  }).addTo(AppState.map);
+  // High-reliability clean basemap without API key restrictions or watermarks
+  // Primary: ESRI World Light Gray Canvas
+  const esriTileLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 8,
+    attribution: 'Esri, HERE, Garmin, USGS'
+  });
+  
+  esriTileLayer.on('tileerror', function() {
+    console.warn('Basemap fallback to OpenStreetMap');
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 8 }).addTo(AppState.map);
+  });
+  
+  esriTileLayer.addTo(AppState.map);
 
-  renderGeoJsonLayer();
+  renderGeoJsonLayer(true); // initial fitBounds
   updateMapLegend();
+
+  // Responsive resize handler
+  window.addEventListener('resize', () => {
+    if (AppState.map && AppState.geoJsonLayer) {
+      AppState.map.invalidateSize();
+      AppState.map.fitBounds(AppState.geoJsonLayer.getBounds(), { padding: [15, 15] });
+    }
+  });
 }
 
-function renderGeoJsonLayer() {
+function renderGeoJsonLayer(shouldFitBounds = false) {
   if (!AppState.geoJson) return;
   if (AppState.geoJsonLayer) AppState.map.removeLayer(AppState.geoJsonLayer);
 
-  const cfg = METRIC_CONFIG[AppState.activeMapMetric];
+  const metricKey = AppState.activeMapMetric;
+  const cfg = METRIC_CONFIG[metricKey];
 
   AppState.geoJsonLayer = L.geoJSON(AppState.geoJson, {
     style: function (feature) {
       const rawName = feature.properties.st_nm;
       const stateName = canonicalizeGeoName(rawName);
       const stData = AppState.data.states[stateName];
-      const val = stData ? stData[AppState.activeMapMetric] : null;
+      const val = stData ? stData[metricKey] : null;
 
       const isSelected = (stateName === AppState.selectedStateDetail);
 
       return {
-        fillColor: getColorForValue(val, cfg),
-        weight: isSelected ? 3 : 1.2,
+        fillColor: getColorForValue(val, metricKey),
+        weight: isSelected ? 3.0 : 1.2,
         opacity: 1,
         color: isSelected ? '#0f172a' : '#ffffff',
-        dashArray: isSelected ? '' : '',
-        fillOpacity: isSelected ? 0.95 : 0.78
+        dashArray: '',
+        fillOpacity: isSelected ? 0.95 : 0.85
       };
     },
     onEachFeature: function (feature, layer) {
@@ -259,15 +321,19 @@ function renderGeoJsonLayer() {
       const stateName = canonicalizeGeoName(rawName);
       const stData = AppState.data.states[stateName];
 
-      const val = stData ? `${stData[AppState.activeMapMetric]}${cfg.unit}` : 'N/A';
+      const val = stData ? `${stData[metricKey]}${cfg.unit}` : 'N/A';
       const pop = stData ? `${stData.population_cr} Cr` : '-';
       const zone = stData ? stData.zone : '-';
+      const tag = stData ? getTierTagForValue(stData[metricKey], metricKey) : '';
 
       const tooltipContent = `
-        <div style="font-family: var(--font-main); font-size: 0.8rem; line-height: 1.4;">
-          <strong style="color: #0f172a; font-size: 0.88rem;">${stateName}</strong><br/>
-          <span style="color: #64748b;">Zone: ${zone} | Pop: ${pop}</span><br/>
-          <span style="color: #2563eb; font-weight: 700;">${cfg.label}: ${val}</span>
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.82rem; line-height: 1.45;">
+          <div style="font-weight: 800; color: #f8fafc; font-size: 0.9rem;">${stateName}</div>
+          <div style="color: #94a3b8; font-size: 0.72rem; margin-bottom: 4px;">Zone: ${zone} | Population: ${pop}</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+            <span style="color: #60a5fa; font-weight: 700;">${cfg.label}: ${val}</span>
+            <span style="background: rgba(255,255,255,0.15); padding: 1px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 600;">${tag}</span>
+          </div>
         </div>
       `;
       layer.bindTooltip(tooltipContent, { sticky: true, className: 'custom-map-tooltip' });
@@ -275,7 +341,7 @@ function renderGeoJsonLayer() {
       layer.on({
         mouseover: function (e) {
           const l = e.target;
-          l.setStyle({ weight: 2.5, color: '#1e293b', fillOpacity: 0.92 });
+          l.setStyle({ weight: 2.8, color: '#0f172a', fillOpacity: 0.98 });
           l.bringToFront();
         },
         mouseout: function (e) {
@@ -284,6 +350,11 @@ function renderGeoJsonLayer() {
         click: function () {
           if (AppState.data.states[stateName]) {
             AppState.selectedStateDetail = stateName;
+            
+            // Sync filter dropdown
+            const stateFilter = document.getElementById('state-filter');
+            if (stateFilter) stateFilter.value = stateName;
+
             renderStateScorecard(stateName);
             AppState.geoJsonLayer.eachLayer(l => AppState.geoJsonLayer.resetStyle(l));
           }
@@ -291,18 +362,53 @@ function renderGeoJsonLayer() {
       });
     }
   }).addTo(AppState.map);
+
+  if (shouldFitBounds && AppState.geoJsonLayer) {
+    AppState.map.fitBounds(AppState.geoJsonLayer.getBounds(), { padding: [15, 15] });
+  }
+}
+
+function highlightStateOnMap(stateName) {
+  if (!AppState.geoJsonLayer) return;
+  AppState.geoJsonLayer.eachLayer(layer => {
+    const rawName = layer.feature.properties.st_nm;
+    const name = canonicalizeGeoName(rawName);
+    if (name === stateName) {
+      layer.setStyle({ weight: 3.5, color: '#0f172a', fillOpacity: 0.98 });
+      layer.bringToFront();
+    } else {
+      AppState.geoJsonLayer.resetStyle(layer);
+    }
+  });
 }
 
 function updateMapLegend() {
-  const cfg = METRIC_CONFIG[AppState.activeMapMetric];
-  document.getElementById('legend-metric-label').textContent = cfg.label;
-  document.getElementById('legend-min').textContent = `${cfg.min}${cfg.unit}`;
-  document.getElementById('legend-mid').textContent = `${cfg.mid}${cfg.unit}`;
-  document.getElementById('legend-max').textContent = `${cfg.max}+${cfg.unit}`;
+  const metricKey = AppState.activeMapMetric;
+  const cfg = METRIC_CONFIG[metricKey];
+  if (!cfg) return;
 
-  // Update gradient bar color
-  const gradEl = document.getElementById('legend-gradient');
-  gradEl.style.background = `linear-gradient(to right, ${cfg.palette.join(', ')})`;
+  const labelEl = document.getElementById('legend-metric-label');
+  const subEl = document.getElementById('legend-metric-sub');
+  const swatchesEl = document.getElementById('legend-swatches');
+
+  if (labelEl) labelEl.textContent = cfg.label;
+  if (subEl) subEl.textContent = cfg.benchmark;
+
+  if (swatchesEl) {
+    swatchesEl.innerHTML = '';
+    cfg.intervals.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'legend-row';
+      row.innerHTML = `
+        <div class="legend-color-label">
+          <span class="legend-box" style="background-color: ${item.color};"></span>
+          <span>${item.label}</span>
+        </div>
+        <span class="legend-tier-tag">${item.tag}</span>
+      `;
+      swatchesEl.appendChild(row);
+    });
+  }
 }
 
 // -------------------------------------------------------------
@@ -626,10 +732,10 @@ function renderMatrixTable() {
 
     tr.addEventListener('click', () => {
       AppState.selectedStateDetail = st.name;
+      const stateFilter = document.getElementById('state-filter');
+      if (stateFilter) stateFilter.value = st.name;
       renderStateScorecard(st.name);
-      if (AppState.geoJsonLayer) {
-        AppState.geoJsonLayer.eachLayer(l => AppState.geoJsonLayer.resetStyle(l));
-      }
+      highlightStateOnMap(st.name);
       document.getElementById('choropleth-section').scrollIntoView({ behavior: 'smooth' });
     });
 
@@ -815,6 +921,11 @@ function setupEventListeners() {
     if (e.target.value !== 'All') {
       AppState.selectedStateDetail = e.target.value;
       renderStateScorecard(e.target.value);
+      highlightStateOnMap(e.target.value);
+    } else {
+      if (AppState.geoJsonLayer) {
+        AppState.geoJsonLayer.eachLayer(l => AppState.geoJsonLayer.resetStyle(l));
+      }
     }
     updateExecutiveKPIs();
     renderMatrixTable();
