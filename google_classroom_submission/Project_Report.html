@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Report - Nutrient Deficiency & The Hidden Hunger Paradox in India</title>
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 20mm 20mm 20mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: #0f172a;
+    line-height: 1.6;
+    font-size: 11pt;
+  }
+  .cover-page {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 60px;
+  }
+  .dept-title {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+  }
+  .main-title {
+    font-size: 24pt;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 15px;
+  }
+  .sub-title {
+    font-size: 14pt;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 40px;
+    line-height: 1.4;
+  }
+  .team-table {
+    width: 90%;
+    margin: 40px auto;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  .team-table th {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 10px 14px;
+    font-size: 10pt;
+  }
+  .team-table td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 14px;
+    font-size: 10pt;
+  }
+  .meta-links {
+    margin-top: 50px;
+    font-size: 9.5pt;
+    color: #475569;
+    line-height: 1.8;
+  }
+  h1 {
+    font-size: 16pt;
+    color: #0f172a;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 6px;
+    margin-top: 30px;
+    page-break-after: avoid;
+  }
+  h2 {
+    font-size: 13pt;
+    color: #1e293b;
+    margin-top: 20px;
+    page-break-after: avoid;
+  }
+  p {
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+  ul {
+    margin-bottom: 12px;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 6px;
+  }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 9.5pt;
+  }
+  table.data-table th {
+    background-color: #1e293b;
+    color: #ffffff;
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table.data-table td {
+    border: 1px solid #e2e8f0;
+    padding: 7px 10px;
+  }
+  table.data-table tr:nth-child(even) {
+    background-color: #f8fafc;
+  }
+  .stat-badge {
+    background-color: #eff6ff;
+    border-left: 4px solid #2563eb;
+    padding: 10px 14px;
+    margin: 14px 0;
+    font-size: 10pt;
+    color: #1e3a8a;
+  }
+  .img-container {
+    text-align: center;
+    margin: 20px 0;
+    page-break-inside: avoid;
+  }
+  .img-container img {
+    max-width: 95%;
+    height: auto;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+  }
+  .caption {
+    font-size: 9pt;
+    color: #64748b;
+    margin-top: 6px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover-page">
+  <div class="dept-title">Academic Data Analytics Capstone Project Report</div>
+  <div class="main-title">NUTRIENT DEFICIENCY & THE HIDDEN HUNGER PARADOX IN INDIA</div>
+  <div class="sub-title">Why High Caloric Intake Still Leads to Severe Macronutrient and Micronutrient Deficiencies Due to Lack of Nutritional Awareness</div>
+  
+  <p style="text-align: center; font-weight: bold; margin-top: 30px; font-size: 12pt;">SUBMITTED BY PROJECT TEAM:</p>
+  
+  <table class="team-table">
+    <thead>
+      <tr>
+        <th>Team Member Name</th>
+        <th>Roll Number</th>
+        <th>Project Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Yeshwanth</strong></td>
+        <td>[Your Roll Number 1]</td>
+        <td>Data Architecture, ETL Pipeline & Geospatial Modeling</td>
+      </tr>
+      <tr>
+        <td><strong>[Team Member 2 Name]</strong></td>
+        <td>[Roll Number 2]</td>
+        <td>Statistical Inference, EDA & Visualizations</td>
+      </tr>
+      <tr>
+        <td><strong>[Team Member 3 Name]</strong></td>
+        <td>[Roll Number 3]</td>
+        <td>Power BI Model, DAX Measures & Web Frontend</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="meta-links">
+    <strong>Academic Year:</strong> 2026-2027<br>
+    <strong>Public GitHub Repository:</strong> https://github.com/yeshwanthkushi25-glitch/india-nutrient-deficiency-analytics<br>
+    <strong>Live Analytics Dashboard:</strong> https://yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/
+  </div>
+</div>
+
+<h1>1. Executive Summary & Problem Statement</h1>
+<p>
+  Historically, public health initiatives across developing nations focused primarily on resolving caloric famine. In modern India, subsidized agricultural supply chains have largely achieved general energy sufficiency, with average daily caloric fulfillment reaching <strong>99.6% – 102.4%</strong> of requirements. However, empirical public health data reveals a profound paradox: over <strong>74.6% of the population fails to achieve the ICMR-NIN recommended dietary protein allowance</strong> (0.83 g/kg/day), while <strong>56.6% suffer from iron-deficiency anemia</strong>, <strong>75.6% suffer from vitamin D deficiency</strong>, and <strong>66.6% suffer from vitamin B12 deficiency</strong>.
+</p>
+<p>
+  This condition—termed <em>The Hidden Hunger Paradox</em> or <em>The Double Burden of Malnutrition</em>—manifests when individuals consume abundant calories through refined carbohydrates (70.2% of total daily energy) and fats without fulfilling cellular requirements for tissue repair, immune vitality, and neuro-cognitive development. Statistical correlation indicates a potent inverse relationship (<strong>r = -0.916</strong>) between state Nutritional Literacy Scores and Hidden Hunger Severity, demonstrating that dietary awareness is the single most decisive factor in plate balance.
+</p>
+
+<h1>2. Public Health Standards & Benchmarks</h1>
+<p>
+  The project anchors its analytical baseline on three authoritative epidemiological benchmarks:
+</p>
+<ul>
+  <li><strong>ICMR-NIN Dietary Guidelines for Indians (2024):</strong> Establishes recommended allowances including 0.83 g/kg protein (54g male, 46g female), capping carbohydrate energy at 45%–55%, 1000 mg/day calcium, 19–29 mg/day iron, and 600 IU vitamin D.</li>
+  <li><strong>National Family Health Survey (NFHS-5, 2019-21):</strong> Comprehensive state-level empirical data on anemia across children (67.1%) and women (57.0%), stunting (35.5%), wasting (19.3%), and adult obesity.</li>
+  <li><strong>Comprehensive National Nutrition Survey (CNNS, UNICEF/MoHFW):</strong> Direct biochemical serum assays for micronutrient biomarkers including ferritin, B12, 25(OH)D, and zinc.</li>
+</ul>
+
+<h1>3. Data Cleaning, Preprocessing & Feature Engineering</h1>
+<p>
+  The raw dataset logged 6,642 records with intentional real-world artifacts in <code>Dataset/raw_dataset.csv</code>. The cleaning pipeline (<code>data_cleaning.py</code>) performed:
+</p>
+<ul>
+  <li><strong>Deduplication:</strong> Identified and eliminated 162 duplicate rows (reducing dataset from 6,642 to 6,480 clean rows).</li>
+  <li><strong>State Name Standardization:</strong> Standardized historic and misspelled variants (e.g., 'Orissa' &rarr; 'Odisha', 'Uttaranchal' &rarr; 'Uttarakhand', 'Pondicherry' &rarr; 'Puducherry') and mapped to official ISO-3166-2 codes.</li>
+  <li><strong>Missing Value Imputation:</strong> 370 missing values were imputed using demographic stratum medians (Zone &times; Awareness Tier &times; Diet), achieving 100% complete data with 0 NaNs.</li>
+  <li><strong>Feature Engineering:</strong> Computed <code>Protein_Deficit_Pct</code>, <code>Caloric_Sufficiency_Pct</code>, <code>Hidden_Hunger_Severity_Index</code>, and <code>Awareness_to_Deficiency_Ratio</code>.</li>
+</ul>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Cleaned Dataset Metric</th>
+      <th>National Benchmark (RDA)</th>
+      <th>Actual Intake Mean</th>
+      <th>Deficit / Fulfillment Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Daily Caloric Intake</td>
+      <td>1,742.0 kcal</td>
+      <td>1,734.7 kcal</td>
+      <td><strong>99.6% (Sufficient / Surplus)</strong></td>
+    </tr>
+    <tr>
+      <td>Carbohydrate Share of Energy</td>
+      <td>&le; 55.0%</td>
+      <td>70.2%</td>
+      <td><strong>+15.2% (Excessive Staple Load)</strong></td>
+    </tr>
+    <tr>
+      <td>Daily Protein Intake</td>
+      <td>41.2 g/day</td>
+      <td>17.9 g/day</td>
+      <td><strong>56.5% Deficit (Critical Gap)</strong></td>
+    </tr>
+    <tr>
+      <td>Iron-Deficiency Anemia</td>
+      <td>&lt; 20.0%</td>
+      <td>56.6%</td>
+      <td><strong>Critical Public Health Crisis</strong></td>
+    </tr>
+    <tr>
+      <td>Vitamin D Deficiency</td>
+      <td>&lt; 25.0%</td>
+      <td>75.6%</td>
+      <td><strong>Severe Nationwide Deficit</strong></td>
+    </tr>
+    <tr>
+      <td>Vitamin B12 Deficiency</td>
+      <td>&lt; 20.0%</td>
+      <td>66.6%</td>
+      <td><strong>Severe (78%+ in Veg Belts)</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>4. Statistical Findings & Exploratory Data Analysis</h1>
+<p>
+  Statistical evaluation via <code>Data_analysis.py</code> established the following core insights:
+</p>
+<div class="stat-badge">
+  <strong>Key Finding 1: The Negative Correlation of Awareness</strong><br>
+  Nutritional Literacy Score correlates negatively with Hidden Hunger Severity at <strong>r = -0.916</strong> (p &lt; 0.001), with Anemia at <strong>r = -0.532</strong>, and with Protein Deficit at <strong>r = -0.544</strong>. Improving dietary literacy directly curbs empty-carb dependence.
+</div>
+<div class="stat-badge">
+  <strong>Key Finding 2: Zonal Disparities</strong><br>
+  The Central (77.7/100) and Eastern (77.8/100) zones exhibit the highest Hidden Hunger Severity, driven by polished rice monoculture and lower literacy scores (33.7–38.4). The Southern Zone achieves higher literacy (52.0) and lower severity (68.3), led by Kerala (56.7).
+</div>
+
+<h1>5. High-Impact, Affordable Indian Food Swaps</h1>
+<p>
+  The project developed a personalized plate simulation showing that overcoming micronutrient gaps does not demand costly commercial supplements. By utilizing indigenous Indian kitchen staples, families can achieve balance for pennies:
+</p>
+<ul>
+  <li><strong>Sattu Drink (Roasted Bengal Gram):</strong> Swapping 1 refined roti for 1 glass of sattu adds 12g bioavailable plant protein and iron for approximately &#8377;10.</li>
+  <li><strong>Lemon / Ascorbic Acid Acidification:</strong> Squeezing fresh lemon over dal and green sabzi triples plant (non-heme) iron absorption by converting ferric to ferrous iron.</li>
+  <li><strong>Chai / Coffee Timing:</strong> Delaying tea consumption by 45 minutes after meals prevents polyphenols and tannins from chelating up to 60% of dietary iron.</li>
+  <li><strong>Ragi (Finger Millet) & Sesame (Til):</strong> Ragi provides 344 mg calcium per 100g, while til provides 975 mg/100g, eliminating calcium deficits.</li>
+</ul>
+
+<h1>6. Software Deliverables & GitHub Deployment</h1>
+<p>
+  The project delivers complete end-to-end deliverables:
+</p>
+<ul>
+  <li><strong>Live Web Application:</strong> Deployed on GitHub Pages at <code>https://yeshwanthkushi25-glitch.github.io/india-nutrient-deficiency-analytics/</code>.</li>
+  <li><strong>Public GitHub Repository:</strong> <code>https://github.com/yeshwanthkushi25-glitch/india-nutrient-deficiency-analytics</code>.</li>
+  <li><strong>Master Excel Dataset:</strong> 6 formatted sheets in <code>data/india_nutrient_deficiency_analytics.xlsx</code>.</li>
+  <li><strong>Power BI Model:</strong> Star schema relational CSVs and <code>Dashboard.pbix</code> with 12 DAX measures.</li>
+  <li><strong>Python Scripts:</strong> <code>data_cleaning.py</code>, <code>Data_analysis.py</code>, <code>Data_visualisation.py</code>.</li>
+</ul>
+
+</body>
+</html>
