@@ -33,3 +33,7 @@ clean_submission_package/
 .idea/
 *.swp
 *.swo
+
+interactive_powerbi/
+scratch/
+
